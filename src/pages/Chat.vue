@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>
+  <div class="container" style="background: yellow">
     <button class="btn">asdfasdf</button>
     <button class="btn--disabled">asdfasdf</button>
   </div>
