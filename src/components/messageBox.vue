@@ -21,6 +21,7 @@ const type = computed(() => "message--" + props.type);
   border-radius: 5px;
   font-size: 14px;
   padding: 20px;
+  animation: init 400ms forwards;
 
   &--primary {
     @extend .message;
@@ -31,6 +32,17 @@ const type = computed(() => "message--" + props.type);
     @extend .message;
     background: #deedff;
     color: #112950;
+  }
+}
+
+@keyframes init{
+  0%{
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100%{
+    opacity: 1;
+    transform: translateY(0px);
   }
 }
 </style>
