@@ -28,14 +28,5 @@
     "vite": "^2.6.4",
     "vue-eslint-parser": "^7.11.0",
     "vue-tsc": "^0.3.0"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,ts,vue}": [
-      "eslint --fix",
-      "git add"
-    ]
   }
 }
