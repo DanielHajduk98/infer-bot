@@ -1,42 +1,42 @@
 <template>
-    <message-box type="grey"
-      >Hello, I’m InferBOT and my Job is to geather informations about your
-      sympotoms to suggest you a diagnosis. First I have to get some basic
-      informations.
-      <div class="divider">
-        <message-button @click="loading = !loading"
-          >Toggle loading</message-button
-        >
-        <message-button>Hello</message-button>
-      </div>
-    </message-box>
-    <message-box type="primary"
-      >Hello, I’m InferBOT and my Job is to geather informations about your
-      sympotoms.</message-box
-    >
-    <message-box type="grey"
-      >Hello, I’m InferBOT and my Job is to geather informations about your
-      sympotoms to suggest you a diagnosis. First I have to get some basic
-      informations.</message-box
-    >
-    <message-box>
-      Choose your sex
-      <div class="divider-grid">
-        <message-tile
-          :active="activeSex === 'female' ? true : false"
-          text="Female"
-          icon="/female.svg"
-          @click="handleSexSelection('female')"
-        />
-        <message-tile
-          :active="activeSex === 'male' ? true : false"
-          text="Male"
-          icon="/male.svg"
-          @click="handleSexSelection('male')"
-        />
-      </div>
-    </message-box>
-    <message-loading :loading="loading" />
+  <message-box type="grey"
+    >Hello, I’m InferBOT and my Job is to geather informations about your
+    sympotoms to suggest you a diagnosis. First I have to get some basic
+    informations.
+    <div class="divider">
+      <message-button @click="loading = !loading"
+        >Toggle loading</message-button
+      >
+      <message-button>Hello</message-button>
+    </div>
+  </message-box>
+  <message-box type="primary"
+    >Hello, I’m InferBOT and my Job is to geather informations about your
+    sympotoms.</message-box
+  >
+  <message-box type="grey"
+    >Hello, I’m InferBOT and my Job is to geather informations about your
+    sympotoms to suggest you a diagnosis. First I have to get some basic
+    informations.</message-box
+  >
+  <message-box>
+    Choose your sex
+    <div class="divider-grid">
+      <message-tile
+        :active="activeSex === 'female' ? true : false"
+        text="Female"
+        icon="/female.svg"
+        @click="handleSexSelection('female')"
+      />
+      <message-tile
+        :active="activeSex === 'male' ? true : false"
+        text="Male"
+        icon="/male.svg"
+        @click="handleSexSelection('male')"
+      />
+    </div>
+  </message-box>
+  <message-loading :loading="loading" />
 </template>
 
 <script setup>
