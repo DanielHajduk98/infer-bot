@@ -1,5 +1,4 @@
 <template>
-  <div>
     <message-box type="grey"
       >Hello, I’m InferBOT and my Job is to geather informations about your
       sympotoms to suggest you a diagnosis. First I have to get some basic
@@ -38,7 +37,6 @@
       </div>
     </message-box>
     <message-loading :loading="loading" />
-  </div>
 </template>
 
 <script setup>
