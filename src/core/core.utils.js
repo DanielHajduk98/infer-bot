@@ -1,27 +1,21 @@
-import { isThisTypeNode } from "typescript"
-import { createApp, h, ref } from "vue"
+import { createApp } from 'vue/dist/vue.esm-bundler';
 
 export const callAPI = async (method, endpoint, body) => {
     fetch(endpoint, {
         method: "GET",
         headers: {
             "content-type": "application/json",
-            "app-id": "",
-            "api-key": ""
+            "app-id": "02985eed",
+            "api-key": "2eddb7cd91720c173c408f757c96b9a7"
         },
         body: JSON.stringify(body)
     })
 }
 
-export const initializeComponent = (component, props, children, parentSelector) => {
-    const componentInstance = createApp({
-        setup(){
-            return () => h(component, props, children)
-        }
-    }) 
+export const mountApp = (component, node) => {
     const wrapper = document.createElement("div")
-    componentInstance.mount(wrapper)
-    document.querySelector(parentSelector).append(wrapper)
+    createApp(component).mount(wrapper)
+    document.querySelector(node).append(wrapper)
 }
 
 export class Flow{
@@ -31,6 +25,7 @@ export class Flow{
     constructor(){
         this.step = 0
         this.flow = []
+        this.store = null
     }
     
     resolve(){
@@ -41,6 +36,7 @@ export class Flow{
     addStep(handler){
         const stepObject = {
             id: this.flow.length,
+            root: this,
             resolve: this.resolve.bind(this),
             handler
         }
@@ -52,7 +48,9 @@ export class Flow{
         return this.flow[this.step]
     }
 
-    init(){
+    init(store){
+        this.store = store()
+        console.log(this.store)
         this.flow[0].handler()
     }
 }
