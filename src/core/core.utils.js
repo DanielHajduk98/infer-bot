@@ -1,6 +1,18 @@
 import { isThisTypeNode } from "typescript"
 import { createApp, h, ref } from "vue"
 
+export const callAPI = async (method, endpoint, body) => {
+    fetch(endpoint, {
+        method: "GET",
+        headers: {
+            "content-type": "application/json",
+            "app-id": "",
+            "api-key": ""
+        },
+        body: JSON.stringify(body)
+    })
+}
+
 export const initializeComponent = (component, props, children, parentSelector) => {
     const componentInstance = createApp({
         setup(){
