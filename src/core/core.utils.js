@@ -12,45 +12,44 @@ export const callAPI = async (method, endpoint, body) => {
     })
 }
 
-export const mountApp = (component, node) => {
+export const mountApp = (template, optionsAPI, node) => {
+    const component = Object.assign(optionsAPI, {template})
     const wrapper = document.createElement("div")
-    createApp(component).mount(wrapper)
+    const app = createApp(component)
+    app.mount(wrapper)
     document.querySelector(node).append(wrapper)
+    return app._instance
 }
 
-export class Flow{
+export class Flow {
 
-    step = 0
-
-    constructor(){
+    constructor(store){
         this.step = 0
         this.flow = []
-        this.store = null
+        this.store = store
     }
     
-    resolve(){
-        this.step = this.step + 1
-        this.flow[this.step]?.handler()
-    }
-
     addStep(handler){
-        const stepObject = {
+        const step = {
             id: this.flow.length,
-            root: this,
+            store: this.store,
             resolve: this.resolve.bind(this),
+            root: this,
             handler
         }
-        this.flow.push(stepObject)
-        return stepObject
+        this.flow.push(step)
+        return this
+    }
+    
+    resolve(timeStamp){
+        this.step++
+        setTimeout(() => {
+            const current = this.flow[this.step]
+            current?.handler(current)
+        }, timeStamp || 0)
     }
 
-    next(){
-        return this.flow[this.step]
-    }
-
-    init(store){
-        this.store = store()
-        console.log(this.store)
-        this.flow[0].handler()
+    init() {
+        this.flow[0].handler(this.flow[0])
     }
 }

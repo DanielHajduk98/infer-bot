@@ -5,9 +5,9 @@
 // import messageBox from "./components/messageBox.vue";
 // import messageButton from "./components/messageButton.vue"
 // import messageTile from "./components/messageTile.vue"
-import { init } from "./core/flow"
 import { useFlowStore } from "./stores/flow.store.js"
-init(useFlowStore)
+import flow from "./core/flow"
+flow(useFlowStore())
 </script>
 
 <style lang="scss">
