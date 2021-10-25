@@ -1,11 +1,29 @@
 <template>
-  <button class="button">
+  <button :class="buttonClass">
     <slot />
   </button>
 </template>
 
 <script>
-export default {};
+import { computed } from "vue";
+export default {
+  props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+    }
+  },
+  setup(props){
+    const buttonClass = computed(() => {
+      if(props.disabled) return "button--disabled"
+      else return "button"
+    })
+
+    return {
+      buttonClass
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -22,6 +40,13 @@ export default {};
   user-select: none;
   border: none;
   white-space: nowrap;
+
+  &--disabled {
+    @extend .button;
+    background-color: #bbb;
+    color: #fff;
+    pointer-events: none;
+  }
 
   &:hover {
     background-color: #2c7bdb;
