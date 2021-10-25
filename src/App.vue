@@ -1,36 +1,9 @@
 <template>
-  <template v-for="el in messageArray">
-    <component v-once :is="el.component" :props="el.props">{{ el.slot }}</component>
-  </template>
-  <messageLoading :loading="true"/>
-  <messageInput @message="handleMessageEvent" />
+  
 </template>
 
 <script>
-import { reactive } from "vue"
-import messageBox from "./components/messageBox.vue"
-// impoer { reactive }
-export default {
-  components: {
-    messageBox
-  },
-  setup() {
-    const messageArray = reactive([
 
-    ])
-    function handleMessageEvent(e) {
-      messageArray.push({
-        component: "message-box",
-        props: {},
-        slot: e
-      })
-    }
-    return {
-      messageArray,
-      handleMessageEvent
-    }
-  }
-}
 </script>
 
 <style lang="scss">
