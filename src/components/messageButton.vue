@@ -43,8 +43,7 @@ export default {
 
   &--disabled {
     @extend .button;
-    background-color: #bbb;
-    color: #fff;
+    filter: brightness(80%);
     pointer-events: none;
   }
 

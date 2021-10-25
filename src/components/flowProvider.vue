@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import { useFlowStore } from "../stores/flow.store.js"
 import { provide } from "vue"
 export default {
     props: {
@@ -16,18 +17,22 @@ export default {
         },
         state: {
             type: Object,
-            required: true
+            required: false
         },
         flow: {
             type: Object,
-            required: true
+            required: false
         }
     },
     setup(props){
+        const store = useFlowStore()
+        provide('store', store)
         provide('flow', props.flow)
         provide('props', props.props)
         provide('id', props.id)
-        provide('state', props.state)
+        if(props.state) {
+            provide('state', props.state)
+        }
         return {}
     }
 }

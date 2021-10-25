@@ -1,15 +1,20 @@
 <template>
-    <div class="input">
+    <div :class="inputClass">
         <input ref="input" placeholder="Type something" type="text" class="input__text-field">
         <button class="input__button" @click="emitMessage"></button>
     </div>
 </template>
 
 <script setup>
-import { ref } from "vue"
+import { ref, computed } from "vue"
 const emit = defineEmits(["message"])
+const props = defineProps(["shown"])
 const input = ref(null)
 
+const inputClass = computed(()=> {
+    if(props.shown) return "input"
+    return "input--hidden"
+})
 function emitMessage(){
     emit("message", input.value.value)
 }
@@ -28,6 +33,12 @@ function emitMessage(){
     box-shadow: 0px -3px 4px rgba(0, 0, 0, 0.16);
     z-index: 9999;
     display: flex;
+    transition: all ease 250ms;
+
+    &--hidden {
+        transform: translateX(-50%) translateY(100%);
+        @extend .input;
+    }
 
     &__text-field{
         padding-left: 8px;
