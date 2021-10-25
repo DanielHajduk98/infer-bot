@@ -18,7 +18,7 @@ export const mountApp = (template, optionsAPI, node) => {
     const app = createApp(component)
     app.mount(wrapper)
     document.querySelector(node).append(wrapper)
-    return app._instance
+    return app
 }
 
 export class Flow {

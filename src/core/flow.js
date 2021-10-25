@@ -3,12 +3,11 @@ import messageBox from "../components/messageBox.vue"
 import messageButton from "../components/messageButton.vue"
 import messageTile from "../components/messageTile.vue"
 
-
 export default (store) => {
 
-  const flow = new Flow(store)
+const flow = new Flow(store)
 
-  flow.addStep((ctx) => {
+flow.addStep((ctx) => {
 
     const TEMPLATE = /*html*/`
       <message-box>
@@ -24,8 +23,8 @@ export default (store) => {
     mountApp(TEMPLATE, OPTIONS, "#app")
 
     ctx.resolve(1000)
-  })
-  .addStep((ctx) => {
+  }) // Welcome message
+  .addStep(({resolve}) => {
 
     const TEMPLATE = /*html*/`
       <message-box>
@@ -43,14 +42,14 @@ export default (store) => {
       },
       methods: {
         comp_resolve() {
-          ctx.resolve()
+          resolve()
         }
       }
     }
 
-    mountApp(TEMPLATE, OPTIONS, "#app")
+    const app = mountApp(TEMPLATE, OPTIONS, "#app")
 
-  })
+  }) // User response to welcome message
   .addStep((ctx) => {
 
     const TEMPLATE = /*html*/`<message-box type="grey">Zaczynamy!</message-box>`
@@ -59,7 +58,7 @@ export default (store) => {
     mountApp(TEMPLATE, OPTIONS, "#app")
     ctx.resolve(1000)
 
-  })
+  }) // Ask User for his sex
   .addStep((ctx) => {
     const TEMPLATE = /*html*/`
     <message-box>
@@ -91,7 +90,7 @@ export default (store) => {
 
     mountApp(TEMPLATE, OPTIONS, "#app")
 
-  })
+  }) // Ask User for his age
   .addStep((ctx) => {
 
     const TEMPLATE = /*html*/`
@@ -111,6 +110,7 @@ export default (store) => {
       },
       methods: {
         comp_resolve(){
+          ctx.store.apiState.sex.value = 18
           ctx.resolve(200)
         }
       }
