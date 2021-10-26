@@ -1,6 +1,5 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-import "./assets/styles/index.scss";
 
 const vueApp = createApp(App)
 
