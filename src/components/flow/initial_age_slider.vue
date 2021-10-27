@@ -1,68 +1,81 @@
 <template>
-  <div class="slider-widget">
-    <label :for="id">{{ label }} {{ inputValue }}</label>
-    <div ref="slider" class="slider-wrapper">
-      <input
-        class="input"
-        ref="input"
-        :id="id"
-        type="range"
-        @input="onSliderChange"
-        @change="onSliderChange"
-        :min="min"
-        :max="max"
-        v-model="inputValue"
-      />
-      <div class="track" aria-hidden="true">
-        <span ref="fill" class="fill"></span>
-        <div ref="thumb" class="thumb">
-          <div class="tooltip">
-            <output class="tooltip__output" :for="id" aria-hidden="true">{{
-              inputValue
-            }}</output>
+  <MessageBox>
+    <div class="slider-widget">
+      <label for="ageSlider">Enter your age: {{ inputValue }}</label>
+      <div ref="slider" class="slider-wrapper">
+        <input
+          :disabled="disabled"
+          class="input"
+          ref="input"
+          id="ageSlider"
+          type="range"
+          @input="onSliderChange"
+          @change="onSliderChange"
+          :min="props.min"
+          :max="props.max"
+          v-model="inputValue"
+        />
+        <div class="track" aria-hidden="true">
+          <span ref="fill" class="fill"></span>
+          <div ref="thumb" class="thumb">
+            <div class="tooltip">
+              <output
+                class="tooltip__output"
+                for="ageSlider"
+                aria-hidden="true"
+                >{{ inputValue }}</output
+              >
+            </div>
           </div>
         </div>
       </div>
+      <message-button :disabled="disabled" @click="chooseAge()"
+        >Done</message-button
+      >
     </div>
-    <button class="btn" @click="emitDone">Done</button>
-  </div>
+  </MessageBox>
 </template>
 
-<script setup lang="ts">
-import { ref, defineProps, onMounted, PropType, computed } from "vue-demi";
+<script setup>
+import { inject, ref, onMounted, computed } from "vue-demi";
+import MessageBox from "../messageBox.vue";
+import messageButton from "../messageButton.vue";
 
-const props = defineProps({
-  id: {
-    type: String as PropType<string>,
-    required: true,
-  },
-  min: {
-    type: Number as PropType<number>,
-    required: true,
-  },
-  max: {
-    type: Number as PropType<number>,
-    required: true,
-  },
-  label: {
-    type: String as PropType<string>,
-    default: "",
-  },
-});
+const flow = inject("flow");
+const store = inject("store");
+const props = inject("props");
 
-const slider = ref<HTMLElement>(),
-  thumb = ref<HTMLElement>(),
-  fill = ref<HTMLElement>(),
-  inputValue = ref<number>(50),
-  range = computed(() => props.max - props.min);
+const slider = ref(),
+  thumb = ref(),
+  fill = ref(),
+  inputValue = ref(50),
+  range = computed(() => props.max - props.min),
+  disabled = ref(false);
 
 const onSliderChange = () => {
-  if (fill.value && thumb.value) {
-    fill.value.style.width =
-      ((inputValue.value - props.min) * 100) / range.value + "%";
-    thumb.value.style.left =
-      ((inputValue.value - props.min) * 100) / range.value + "%";
-  }
+  fill.value.style.width =
+    ((inputValue.value - props.min) * 100) / range.value + "%";
+  thumb.value.style.left =
+    ((inputValue.value - props.min) * 100) / range.value + "%";
+};
+
+const chooseAge = () => {
+  store.apiState.age = inputValue.value;
+  disabled.value = true;
+
+  flow.push({
+    id: flow.length + 1,
+    component: "plain_user_response",
+    props: { message: inputValue.value },
+  });
+
+  setTimeout(() => {
+    flow.push({
+      id: flow.length + 1,
+      component: "parse_question",
+      props: {},
+    });
+  }, 800);
 };
 
 onMounted(() => {
@@ -125,7 +138,7 @@ label {
   }
 
   .tooltip {
-    background-image: url("../assets/images/svg/pin.svg");
+    background-image: url("../../assets/images/svg/pin.svg");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
