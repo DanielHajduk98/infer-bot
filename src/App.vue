@@ -11,6 +11,7 @@ import { chatFlowState } from "./utils/flow.core.js"
 import initial_introduction from "./components/flow/initial_introduction.vue"
 import initial_interaction from "./components/flow/initial_interaction.vue"
 import initial_sex_question from "./components/flow/initial_sex_question.vue"
+import initial_age_slider from "./components/flow/initial_age_slider.vue"
 
 import plain_user_response from "./components/flow/plain_user_response.vue"
 
@@ -24,7 +25,8 @@ export default {
     initial_introduction,
     initial_interaction,
     initial_sex_question,
-
+    initial_age_slider,
+    
     plain_user_response,
 
     parse_question,
