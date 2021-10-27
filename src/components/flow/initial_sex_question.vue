@@ -2,12 +2,12 @@
   <message-box>
     Great! At first I need to know your sex. Choose one option.
     <div class="btn-container">
-      <message-button :disabled="btnDisabled" @click="chooseSex('female')"
-        >Female</message-button
-      >
-      <message-button :disabled="btnDisabled" @click="chooseSex('male')"
-        >Male</message-button
-      >
+      <message-button :disabled="btnDisabled" @click="chooseSex('female')">
+        Female
+      </message-button>
+      <message-button :disabled="btnDisabled" @click="chooseSex('male')">
+        Male
+      </message-button>
     </div>
   </message-box>
 </template>
