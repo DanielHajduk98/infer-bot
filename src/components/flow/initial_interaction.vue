@@ -3,16 +3,16 @@
     I'm based on Infermedica API. You can read more about that
     <a href="https:developer.infermedica.com"> Here</a>
     <div style="margin-top: 16px">
-      <MessageButton :disabled="btnDisabled" @click="next">
+      <message-button :disabled="btnDisabled" @click="next">
         Let's go!
-      </MessageButton>
+      </message-button>
     </div>
   </message-box>
 </template>
 
 <script setup>
 import { inject, ref } from "vue";
-import MessageButton from "../messageButton.vue";
+import MessageButton from "../MessageButton.vue";
 const flow = inject("flow");
 const btnDisabled = ref(false);
 

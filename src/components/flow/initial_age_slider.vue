@@ -1,5 +1,5 @@
 <template>
-  <MessageBox>
+  <message-box>
     <div class="slider-widget">
       <label for="ageSlider">Enter your age: {{ inputValue }}</label>
       <div ref="slider" class="slider-wrapper">
@@ -34,13 +34,11 @@
         Done
       </message-button>
     </div>
-  </MessageBox>
+  </message-box>
 </template>
 
 <script setup>
 import { inject, ref, onMounted, computed } from "vue-demi";
-import MessageBox from "../messageBox.vue";
-import messageButton from "../messageButton.vue";
 
 const flow = inject("flow");
 const store = inject("store");

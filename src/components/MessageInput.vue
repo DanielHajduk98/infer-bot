@@ -63,7 +63,7 @@ function emitMessage() {
     right: 45px;
     top: 50%;
     transform: translateY(-50%);
-    background-image: url("../assts/message_button.svg");
+    background-image: url("../assets/message_button.svg");
     height: 20px;
     width: 16px;
     padding: 2px;
