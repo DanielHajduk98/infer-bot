@@ -6,6 +6,7 @@
         <input
           :disabled="disabled"
           class="input"
+          :class="{ 'input--disabled': disabled }"
           ref="input"
           id="ageSlider"
           type="range"
@@ -133,10 +134,6 @@ label {
     top: $thumb-offset;
   }
 
-  .input:hover + .track .tooltip {
-    opacity: 1;
-  }
-
   .tooltip {
     background-image: url("../../assets/images/svg/pin.svg");
     background-size: contain;
@@ -167,6 +164,12 @@ label {
     top: 0;
     width: 100%;
     z-index: 2;
+  }
+
+  .input[type="range"]:not(.input--disabled):hover + .track .tooltip,
+  .input[type="range"]:not(.input--disabled):focus + .track .tooltip,
+  .input[type="range"]:not(.input--disabled):active + .track .tooltip {
+    opacity: 1;
   }
 
   // make default slider transparent
