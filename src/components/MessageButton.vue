@@ -11,18 +11,18 @@ export default {
     disabled: {
       type: Boolean,
       default: false,
-    }
+    },
   },
-  setup(props){
+  setup(props) {
     const buttonClass = computed(() => {
-      if(props.disabled) return "button--disabled"
-      else return "button"
-    })
+      if (props.disabled) return "button--disabled";
+      else return "button";
+    });
 
     return {
-      buttonClass
-    }
-  }
+      buttonClass,
+    };
+  },
 };
 </script>
 
