@@ -1,8 +1,5 @@
 <template>
-  <message-box>
-    Sorry, I'm not as smart as you are. 😞😘 Can you write you ailment again in
-    a little bit diffrent way so I can understand it better..? Please ❤️
-  </message-box>
+  <message-box> Tell me what is you symptom? </message-box>
 </template>
 
 <script setup>
@@ -16,7 +13,7 @@ watch(
     if (store.show_input === true) {
       flow.push({
         id: 5,
-        component: "parse_user_response",
+        component: "UserResponse",
         props: {
           message: store.input_value,
         },

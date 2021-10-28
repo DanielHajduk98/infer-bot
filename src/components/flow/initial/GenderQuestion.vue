@@ -23,14 +23,14 @@ function chooseSex(sex) {
 
   flow.push({
     id: flow.length + 1,
-    component: "plain_user_response",
+    component: "PlainUserResponse",
     props: { message: sex },
   });
 
   setTimeout(() => {
     flow.push({
       id: flow.length + 1,
-      component: "initial_age_slider",
+      component: "AgeQuestion",
       props: {
         min: 18,
         max: 130,

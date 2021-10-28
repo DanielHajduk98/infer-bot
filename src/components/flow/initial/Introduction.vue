@@ -10,7 +10,7 @@ import { inject } from "vue";
 const flow = inject("flow");
 flow.push({
   id: flow.length + 1,
-  component: "initial_interaction",
+  component: "InitialInteraction",
   props: {},
 });
 </script>

@@ -23,7 +23,7 @@ function next(more) {
     flow.push({
       id: flow.length + 5,
       props: {},
-      component: "parse_question",
+      component: "Question",
     });
   } else {
     flow.push({

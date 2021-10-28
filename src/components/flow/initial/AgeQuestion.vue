@@ -64,14 +64,14 @@ const chooseAge = () => {
 
   flow.push({
     id: flow.length + 1,
-    component: "plain_user_response",
+    component: "PlainUserResponse",
     props: { message: inputValue.value },
   });
 
   setTimeout(() => {
     flow.push({
       id: flow.length + 1,
-      component: "parse_question",
+      component: "Question",
       props: {},
     });
   }, 800);
@@ -133,7 +133,7 @@ label {
   }
 
   .tooltip {
-    background-image: url("../../assets/images/svg/pin.svg");
+    background-image: url("../../../assets/images/svg/pin.svg");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

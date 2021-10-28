@@ -24,7 +24,7 @@ function next(more) {
     flow.push({
       id: flow.length + 1,
       props: {},
-      component: "parse_obvious_answer",
+      component: "ObviousAnswer",
     });
     store.apiState.evidence.push({
       id: props.mentions[0].id,
@@ -39,13 +39,13 @@ function next(more) {
         props: {
           mentions: shiftedSymptoms,
         },
-        component: "parse_not_obvious_answer",
+        component: "NotObviousAnswer",
       });
     } else {
       flow.push({
         id: flow.length + 1,
         props: {},
-        component: "parse_obvious_answer",
+        component: "ObviousAnswer",
       });
     }
   }

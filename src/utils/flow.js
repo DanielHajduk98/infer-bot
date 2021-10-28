@@ -1,7 +1,7 @@
 export default [
   {
     id: 0,
-    component: "initial_introduction",
+    component: "Introduction",
     props: {},
   },
 ];

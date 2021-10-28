@@ -33,7 +33,7 @@ fetch("https://api.infermedica.com/v3/parse", {
         flow.push({
           id: flow.length + 1,
           props: {},
-          component: "parse_obvious_answer",
+          component: "ObviousAnswer",
         });
         store.apiState.evidence.push({
           id: response.mentions[0].id,
@@ -45,14 +45,14 @@ fetch("https://api.infermedica.com/v3/parse", {
           props: {
             mentions: response.mentions,
           },
-          component: "parse_not_obvious_answer",
+          component: "NotObviousAnswer",
         });
       }
     } else {
       flow.push({
         id: flow.length + 1,
         props: {},
-        component: "parse_incomperhensible_answer",
+        component: "ParseIncomprehensibleAnswer",
       });
     }
   });

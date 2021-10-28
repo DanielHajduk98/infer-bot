@@ -12,7 +12,7 @@
 
 <script setup>
 import { inject, ref } from "vue";
-import MessageButton from "../MessageButton.vue";
+import MessageButton from "../../MessageButton.vue";
 const flow = inject("flow");
 const btnDisabled = ref(false);
 
@@ -21,14 +21,14 @@ function next() {
     flow.push({
       id: 2,
 
-      component: "plain_user_response",
+      component: "PlainUserResponse",
       props: { message: "Let's go!" },
     });
 
     setTimeout(() => {
       flow.push({
         id: 3,
-        component: "initial_sex_question",
+        component: "GenderQuestion",
         props: {},
       });
     }, 800);
