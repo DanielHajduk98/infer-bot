@@ -5,6 +5,7 @@
       placeholder="Type something"
       type="text"
       class="input__text-field"
+      autofocus
     />
     <button class="input__button" type="submit" />
   </form>

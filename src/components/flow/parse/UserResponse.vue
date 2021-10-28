@@ -27,8 +27,9 @@ fetch("https://api.infermedica.com/v3/parse", {
 })
   .then((response) => response.json())
   .then((response) => {
-    if (response.mentions.length != 0) {
-      if (response.obvious == true) {
+    console.log(response);
+    if (response.mentions.length !== 0) {
+      if (response.obvious === true) {
         console.log(response);
         flow.push({
           id: flow.length + 1,
