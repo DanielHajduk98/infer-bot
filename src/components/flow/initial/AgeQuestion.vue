@@ -1,23 +1,23 @@
 <template>
-  <MessageBox>
+  <message-box>
     <div class="slider-widget">
       <label for="ageSlider">Enter your age: {{ inputValue }}</label>
       <div ref="slider" class="slider-wrapper">
         <input
+          id="ageSlider"
+          ref="input"
+          v-model="inputValue"
           :disabled="disabled"
           class="input"
           :class="{ 'input--disabled': disabled }"
-          ref="input"
-          id="ageSlider"
           type="range"
-          @input="onSliderChange"
-          @change="onSliderChange"
           :min="props.min"
           :max="props.max"
-          v-model="inputValue"
+          @input="onSliderChange"
+          @change="onSliderChange"
         />
         <div class="track" aria-hidden="true">
-          <span ref="fill" class="fill"></span>
+          <span ref="fill" class="fill" />
           <div ref="thumb" class="thumb">
             <div class="tooltip">
               <output
@@ -30,17 +30,15 @@
           </div>
         </div>
       </div>
-      <message-button :disabled="disabled" @click="chooseAge()"
-        >Done</message-button
-      >
+      <message-button :disabled="disabled" @click="chooseAge()">
+        Done
+      </message-button>
     </div>
-  </MessageBox>
+  </message-box>
 </template>
 
 <script setup>
 import { inject, ref, onMounted, computed } from "vue-demi";
-import MessageBox from "../messageBox.vue";
-import messageButton from "../messageButton.vue";
 
 const flow = inject("flow");
 const store = inject("store");
@@ -66,14 +64,14 @@ const chooseAge = () => {
 
   flow.push({
     id: flow.length + 1,
-    component: "plain_user_response",
+    component: "PlainUserResponse",
     props: { message: inputValue.value },
   });
 
   setTimeout(() => {
     flow.push({
       id: flow.length + 1,
-      component: "parse_question",
+      component: "Question",
       props: {},
     });
   }, 800);
@@ -135,7 +133,7 @@ label {
   }
 
   .tooltip {
-    background-image: url("../../assets/images/svg/pin.svg");
+    background-image: url("../../../assets/images/svg/pin.svg");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
