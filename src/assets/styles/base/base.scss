@@ -21,6 +21,15 @@ body{
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  &--results {
+    @extend #app;
+    background-color: $background;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content min-content 1fr;
+    padding-bottom: 0 !important;
+  }
 }
 
 a {
