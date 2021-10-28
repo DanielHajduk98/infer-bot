@@ -1,7 +1,7 @@
 <template>
-    <div class="recomendation">
-        <h2 class="recomendation__heading">Call an ambulance</h2>
-        <p class="recomendation__paragraph">Their symptoms are very serious, and they may require emergency care. Do not delay. Call an ambulance right now.</p>
+    <div class="recommendation">
+        <h2 class="recommendation__heading">Call an ambulance</h2>
+        <p class="recommendation__paragraph">Their symptoms are very serious, and they may require emergency care. Do not delay. Call an ambulance right now.</p>
     </div>
 
     <div class="alarming">
@@ -19,42 +19,41 @@
         <h2 class="results__heading">Results</h2>
         <p class="results__paragraph">Please note that the list below may not be complete and is provided solely for informational purposes and is not a qualified medical opinion.</p>
 
-        <ConditionPercentage class="results__condition" name="Cancer"/>
-        <ConditionPercentage class="results__condition" name="Cancer"/>
-        <ConditionPercentage class="results__condition" name="Cancer"/>
-        <ConditionPercentage class="results__condition" name="Cancer"/>
+        <ConditionPercentage class="results__condition" percentage="25" name="Cancer"/>
+        <ConditionPercentage class="results__condition" percentage="25" name="Cancer"/>
+        <ConditionPercentage class="results__condition" percentage="25" name="Cancer"/>
+        <ConditionPercentage class="results__condition" percentage="25" name="Cancer"/>
     </div>
 </template>
 
 <script setup>
 </script>
 
-<style>
+<style lang="scss">
 #app {
-    background-color: #fff;
+    background-color: $background;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: min-content min-content 1fr;
     padding-bottom: 0 !important;
-    background-color: red;
 }
 </style>
 
 <style lang="scss" scoped>
-.recomendation {
+.recommendation {
     &__heading {
         font-weight: 600;
-        font-size: 15px;
-        line-height: 22px;
-        color: #112950;
+        font-size: $font-line-small;
+        line-height: $font-line-medium;
+        color: $text;
         margin-top: 0;
     }
 
     &__paragraph {
         font-weight: normal;
-        font-size: 12px;
+        font-size: $font-extra-small;
         line-height: 19px;
-        color: #696969;
+        color: $grey;
     }
 }
 
@@ -62,9 +61,9 @@
     &__heading {
         margin-top: 0;
         font-weight: 600;
-        font-size: 15px;
-        line-height: 22px;
-        color: #112950;
+        font-size: $font-line-small;
+        line-height: $font-line-medium;
+        color: $text;
     }
 
     ul {
@@ -74,16 +73,16 @@
 
     ul > li {
         font-weight: normal;
-        font-size: 12px;
-        line-height: 12px;
+        font-size: $font-extra-small;
+        line-height: $font-extra-small;
         margin-bottom: 9px;
-        color: #696969;
+        color: $grey;
     }
 }
 
 .results {
-    background-color: #3F94FF;
-    color: #fff;
+    background-color: $primary;
+    color: $text-white;
     height: 100%;
     transform: translateX(-30px);
     width: calc(100% + 60px);
@@ -91,13 +90,13 @@
 
     &__heading {
         font-weight: 600;
-        font-size: 15px;
-        line-height: 22px;
+        font-size: $font-line-small;
+        line-height: $font-line-medium;
     }
 
     &__paragraph {
-        font-size: 10px;
-        line-height: 16px;
+        font-size: $font-tiny;
+        line-height: $font-line-small;
         margin-bottom: 18px;
     }
 
@@ -105,7 +104,7 @@
         margin-bottom: 15px;
     }
 
-    &__condition::last-child {
+    &__condition:last-child {
         margin-bottom: 0;
     }
 }
