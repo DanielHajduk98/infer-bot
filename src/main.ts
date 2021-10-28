@@ -15,6 +15,6 @@ const router = createRouter({
 })
 
 const vueApp = createApp(App)
-vueApp.use(createPinia())
 vueApp.use(router)
+vueApp.use(createPinia())
 vueApp.mount("#app");

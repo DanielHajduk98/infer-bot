@@ -1,48 +1,49 @@
 <template>
-  <flow-provider v-for="elem in chatFlowState" :flow="chatFlowState" :key="elem.id" :id="elem.id" :props="elem.props" :state="elem.state">
-    <component :is="elem.component"/>
-  </flow-provider>
+  <FlowProvider
+    v-for="elem in chatFlowState"
+    :flow="chatFlowState"
+    :key="elem.id"
+    :id="elem.id"
+    :props="elem.props"
+    :state="elem.state"
+  >
+    <component :is="elem.component" />
+  </FlowProvider>
   <MessageInput @message="handleMessage" :shown="store.$state.show_input"/>
 </template>
 
 <script>
-import { useRouter } from "vue-router"
+import { useFlowStore } from "./stores/flow.store.js";
+import { chatFlowState } from "./utils/flow.core.js";
+import Introduction from "./components/flow/initial/Introduction.vue";
+import InitialInteraction from "./components/flow/initial/InitialInteraction.vue";
+import GenderQuestion from "./components/flow/initial/GenderQuestion.vue";
+import AgeQuestion from "./components/flow/initial/AgeQuestion.vue";
+import Question from "./components/flow/initial/Question.vue";
+import ParseIncomprehensibleAnswer from "./components/flow/parse/IncomprehensibleAnswer.vue";
+import PlainUserResponse from "./components/flow/PlainUserResponse.vue";
+import UserResponse from "./components/flow/parse/UserResponse.vue";
+import ObviousAnswer from "./components/flow/parse/ObviousAnswer.vue";
+import NotObviousAnswer from "./components/flow/parse/NotObviousAnswer.vue";
 
-import { useFlowStore } from "./stores/flow.store.js"
-import { chatFlowState } from "./utils/flow.core.js"
-import initial_introduction from "./components/flow/initial_introduction.vue"
-import initial_interaction from "./components/flow/initial_interaction.vue"
-import initial_sex_question from "./components/flow/initial_sex_question.vue"
-import initial_age_slider from "./components/flow/initial_age_slider.vue"
-
-import plain_user_response from "./components/flow/plain_user_response.vue"
-
-import parse_question from "./components/flow/parse_question.vue"
-import parse_user_response from "./components/flow/parse_user_response.vue"
-import parse_obvious_answer from "./components/flow/parse_obvious_answer.vue"
-import parse_not_obvious_answer from "./components/flow/parse_not_obvious_answer.vue"
-import parse_incomperhensible_answer from "./components/flow/parse_incomperhensible_answer.vue"
 export default {
   components: {
-    initial_introduction,
-    initial_interaction,
-    initial_sex_question,
-    initial_age_slider,
-    
-    plain_user_response,
-
-    parse_question,
-    parse_user_response,
-    parse_obvious_answer,
-    parse_not_obvious_answer,
-    parse_incomperhensible_answer
-
+    Introduction,
+    InitialInteraction,
+    GenderQuestion,
+    AgeQuestion,
+    PlainUserResponse,
+    Question,
+    UserResponse,
+    ObviousAnswer,
+    NotObviousAnswer,
+    ParseIncomprehensibleAnswer
   },
-  setup(){
+  setup() {
     const store = useFlowStore()
-    const router = useRouter()
+    console.log("123")
 
-    function handleMessage(e){
+    function handleMessage(e) {
       store.input_value = e
     }
 

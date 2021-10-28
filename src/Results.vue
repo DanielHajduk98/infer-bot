@@ -27,17 +27,8 @@
 </template>
 
 <script setup>
+document.getElementById("app").id = "app--results"
 </script>
-
-<style lang="scss">
-#app {
-    background-color: $background;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: min-content min-content 1fr;
-    padding-bottom: 0 !important;
-}
-</style>
 
 <style lang="scss" scoped>
 .recommendation {
