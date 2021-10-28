@@ -44,8 +44,8 @@ function next(more) {
     } else {
       flow.push({
         id: flow.length + 1,
-        props: {},
-        component: "ObviousAnswer",
+        props: { message: "123" },
+        component: "IncomprehensibleAnswer",
       });
     }
   }
