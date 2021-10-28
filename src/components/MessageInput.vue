@@ -1,13 +1,13 @@
 <template>
-  <div :class="inputClass">
+  <form :class="inputClass" @submit.prevent="emitMessage">
     <input
       ref="input"
       placeholder="Type something"
       type="text"
       class="input__text-field"
     />
-    <button class="input__button" @click="emitMessage" />
-  </div>
+    <button class="input__button" type="submit" />
+  </form>
 </template>
 
 <script setup>
