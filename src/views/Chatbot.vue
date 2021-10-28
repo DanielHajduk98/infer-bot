@@ -13,18 +13,18 @@
 </template>
 
 <script>
-import { useFlowStore } from "./stores/flow.store.js";
-import { chatFlowState } from "./utils/flow.core.js";
-import Introduction from "./components/flow/initial/Introduction.vue";
-import InitialInteraction from "./components/flow/initial/InitialInteraction.vue";
-import GenderQuestion from "./components/flow/initial/GenderQuestion.vue";
-import AgeQuestion from "./components/flow/initial/AgeQuestion.vue";
-import Question from "./components/flow/initial/Question.vue";
-import ParseIncomprehensibleAnswer from "./components/flow/parse/IncomprehensibleAnswer.vue";
-import PlainUserResponse from "./components/flow/PlainUserResponse.vue";
-import UserResponse from "./components/flow/parse/UserResponse.vue";
-import ObviousAnswer from "./components/flow/parse/ObviousAnswer.vue";
-import NotObviousAnswer from "./components/flow/parse/NotObviousAnswer.vue";
+import { useFlowStore } from "../stores/flow.store.js";
+import { chatFlowState } from "../utils/flow.core.js";
+import Introduction from "../components/flow/initial/Introduction.vue";
+import InitialInteraction from "../components/flow/initial/InitialInteraction.vue";
+import GenderQuestion from "../components/flow/initial/GenderQuestion.vue";
+import AgeQuestion from "../components/flow/initial/AgeQuestion.vue";
+import Question from "../components/flow/initial/Question.vue";
+import ParseIncomprehensibleAnswer from "../components/flow/parse/IncomprehensibleAnswer.vue";
+import PlainUserResponse from "../components/flow/PlainUserResponse.vue";
+import UserResponse from "../components/flow/parse/UserResponse.vue";
+import ObviousAnswer from "../components/flow/parse/ObviousAnswer.vue";
+import NotObviousAnswer from "../components/flow/parse/NotObviousAnswer.vue";
 
 export default {
   components: {

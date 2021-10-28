@@ -16,6 +16,7 @@
 import { inject, ref } from "vue";
 const flow = inject("flow");
 const btnDisabled = ref(false);
+const store = inject("store");
 
 function next(more) {
   btnDisabled.value = true;
@@ -26,11 +27,7 @@ function next(more) {
       component: "Question",
     });
   } else {
-    flow.push({
-      id: flow.length + 1,
-      props: {},
-      component: "flow_nlp_end",
-    });
+    store.getDiagnosis();
   }
 }
 </script>

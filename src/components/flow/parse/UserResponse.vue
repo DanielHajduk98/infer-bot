@@ -20,7 +20,7 @@ fetch("https://api.infermedica.com/v3/parse", {
   body: JSON.stringify({
     text: props.message,
     age: {
-      value: 18,
+      value: store.apiState.age,
     },
     sex: store.apiState.sex.value,
   }),
@@ -53,7 +53,7 @@ fetch("https://api.infermedica.com/v3/parse", {
       flow.push({
         id: flow.length + 1,
         props: {},
-        component: "ParseIncomprehensibleAnswer",
+        component: "IncomprehensibleAnswer",
       });
     }
   });
