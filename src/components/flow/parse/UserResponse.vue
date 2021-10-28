@@ -52,7 +52,7 @@ fetch("https://api.infermedica.com/v3/parse", {
       flow.push({
         id: flow.length + 1,
         props: {},
-        component: "ParseIncomprehensibleAnswer",
+        component: "IncomprehensibleAnswer",
       });
     }
   });
