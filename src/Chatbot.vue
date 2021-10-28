@@ -41,7 +41,6 @@ export default {
   },
   setup() {
     const store = useFlowStore()
-    console.log("123")
 
     function handleMessage(e) {
       store.input_value = e
