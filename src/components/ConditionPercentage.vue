@@ -1,27 +1,24 @@
 <template>
     <div class="display">
         <div class="display__name">{{name}}</div>
-        <div class="display__bar-container">
-            <div class="display__bar" :style="`width: ${percentage};`"></div>
-        </div>
+        <progress class="display__bar" max="100" :value="percentage"></progress>
+
     </div>
 </template>
 
 <script setup>
 import { computed } from "vue"
 
-const props = defineProps({
+defineProps({
     name: {
         type: String,
         default: "{{default string}}"
     },
     percentage: {
-        type: Number,
-        default: 75
+        type: String,
+        default: "123"
     }
 })
-
-const percentage = computed(() => props.percentage + "%")
 </script>
 
 <style lang="scss" scoped>
@@ -29,27 +26,31 @@ const percentage = computed(() => props.percentage + "%")
     background-color: #fff;
     padding: 15px;
     border-radius: 3px;
+    color: $text;
+
     &__name {
-        color: #112950;
-        font-size: 12px;
-        line-height: 17px;
+        font-size: $font-extra-small;
+        line-height: $font-line-default;
         font-weight: 600;
     }
 
-    &__bar-container {
-        height: 9px;
+    &__bar {
+        -webkit-appearance: none;
+        appearance: none;
         width: 100%;
-        background-color: #8DC0FF;
-        margin-top: 9px;
-        border-radius: 18px;
+        height: 9px;
+
+        &::-webkit-progress-bar {
+            background-color: $blue-light;
+            border-radius: 9px;
+        }
+
+        &::-webkit-progress-value {
+            background-color: $primary;
+            border-radius: 9px;
+        }
     }
 
-    &__bar {
-        height: 9px;
-        width: 10%;
-        background-color: #3F94FF;
-        margin-top: 9px;
-        border-radius: 18px;
-    }
+
 }
 </style>
