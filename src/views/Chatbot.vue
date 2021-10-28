@@ -1,15 +1,15 @@
 <template>
   <FlowProvider
     v-for="elem in chatFlowState"
-    :flow="chatFlowState"
-    :key="elem.id"
     :id="elem.id"
+    :key="elem.id"
+    :flow="chatFlowState"
     :props="elem.props"
     :state="elem.state"
   >
     <component :is="elem.component" />
   </FlowProvider>
-  <MessageInput @message="handleMessage" :shown="store.$state.show_input"/>
+  <MessageInput :shown="store.$state.show_input" @message="handleMessage" />
 </template>
 
 <script>
@@ -20,7 +20,7 @@ import InitialInteraction from "../components/flow/initial/InitialInteraction.vu
 import GenderQuestion from "../components/flow/initial/GenderQuestion.vue";
 import AgeQuestion from "../components/flow/initial/AgeQuestion.vue";
 import Question from "../components/flow/initial/Question.vue";
-import ParseIncomprehensibleAnswer from "../components/flow/parse/IncomprehensibleAnswer.vue";
+import IncomprehensibleAnswer from "../components/flow/parse/IncomprehensibleAnswer.vue";
 import PlainUserResponse from "../components/flow/PlainUserResponse.vue";
 import UserResponse from "../components/flow/parse/UserResponse.vue";
 import ObviousAnswer from "../components/flow/parse/ObviousAnswer.vue";
@@ -37,22 +37,22 @@ export default {
     UserResponse,
     ObviousAnswer,
     NotObviousAnswer,
-    ParseIncomprehensibleAnswer
+    IncomprehensibleAnswer,
   },
   setup() {
-    const store = useFlowStore()
+    const store = useFlowStore();
 
     function handleMessage(e) {
-      store.input_value = e
+      store.input_value = e;
     }
 
     return {
       store,
       chatFlowState,
-      handleMessage
-    }
-  }
-}
+      handleMessage,
+    };
+  },
+};
 </script>
 
 <style lang="scss">

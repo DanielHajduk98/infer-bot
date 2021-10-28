@@ -1,45 +1,47 @@
 <template>
-  <template v-if="has_emergency_evidence">
-    <div class="recommendation">
-      <h2 class="recommendation__heading">Call an ambulance</h2>
-      <p class="recommendation__paragraph">
-        Their symptoms are very serious, and they may require emergency care. Do
-        not delay. Call an ambulance right now.
+  <section class="diagnosis-page">
+    <template v-if="has_emergency_evidence">
+      <div class="recommendation">
+        <h2 class="recommendation__heading">Call an ambulance</h2>
+        <p class="recommendation__paragraph">
+          Their symptoms are very serious, and they may require emergency care.
+          Do not delay. Call an ambulance right now.
+        </p>
+      </div>
+
+      <div class="alarming">
+        <h2 class="alarming__heading">Alarming Symptoms</h2>
+        <ul>
+          <li>Confusion after an injury</li>
+          <li>Shortness of breath starting within the hour</li>
+          <li>Blood oxygen level between 90 and 94%</li>
+          <li>Breathing problems after an injury</li>
+          <li>Sudden breathing problems after an injury</li>
+        </ul>
+      </div>
+    </template>
+
+    <div class="results">
+      <h2 class="results__heading">Results</h2>
+      <p class="results__paragraph">
+        Please note that the list below may not be complete and is provided
+        solely for informational purposes and is not a qualified medical
+        opinion.
       </p>
-    </div>
 
-    <div class="alarming">
-      <h2 class="alarming__heading">Alarming Symptoms</h2>
-      <ul>
-        <li>Confusion after an injury</li>
-        <li>Shortness of breath starting within the hour</li>
-        <li>Blood oxygen level between 90 and 94%</li>
-        <li>Breathing problems after an injury</li>
-        <li>Sudden breathing problems after an injury</li>
-      </ul>
+      <ConditionPercentage
+        v-for="(condition, index) in conditions"
+        :key="index"
+        class="results__condition"
+        :percentage="condition.probability"
+        :name="condition.name"
+      />
     </div>
-  </template>
-  <div class="results">
-    <h2 class="results__heading">Results</h2>
-    <p class="results__paragraph">
-      Please note that the list below may not be complete and is provided solely
-      for informational purposes and is not a qualified medical opinion.
-    </p>
-
-    <ConditionPercentage
-      v-for="(condition, index) in conditions"
-      :key="index"
-      class="results__condition"
-      :percentage="condition.probability"
-      :name="condition.name"
-    />
-  </div>
+  </section>
 </template>
 
 <script setup>
 import { useFlowStore } from "../stores/flow.store";
-
-document.getElementById("app").id = "app--results";
 
 const store = useFlowStore(),
   conditions = store.diagnosis.conditions,
