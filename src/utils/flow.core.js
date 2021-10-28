@@ -1,4 +1,4 @@
-import { reactive } from "vue"
-import flow from "./flow.js"
+import { reactive } from "vue";
+import flow from "./flow.js";
 
-export const chatFlowState = reactive([...flow])
+export const chatFlowState = reactive([...flow]);

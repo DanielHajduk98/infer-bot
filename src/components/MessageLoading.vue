@@ -1,8 +1,8 @@
 <template>
   <div :class="loaderModifier">
-    <div class="point"></div>
-    <div class="point"></div>
-    <div class="point"></div>
+    <div class="point" />
+    <div class="point" />
+    <div class="point" />
   </div>
 </template>
 
