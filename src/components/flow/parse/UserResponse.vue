@@ -20,15 +20,16 @@ fetch("https://api.infermedica.com/v3/parse", {
   body: JSON.stringify({
     text: props.message,
     age: {
-      value: 18,
+      value: store.apiState.age,
     },
     sex: store.apiState.sex.value,
   }),
 })
   .then((response) => response.json())
   .then((response) => {
-    if (response.mentions.length != 0) {
-      if (response.obvious == true) {
+    console.log(response);
+    if (response.mentions.length !== 0) {
+      if (response.obvious === true) {
         console.log(response);
         flow.push({
           id: flow.length + 1,

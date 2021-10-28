@@ -12,7 +12,7 @@ watch(
   () => {
     if (store.show_input === true) {
       flow.push({
-        id: 5,
+        id: flow.length + 1,
         component: "UserResponse",
         props: {
           message: store.input_value,

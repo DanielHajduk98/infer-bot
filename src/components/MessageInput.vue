@@ -1,27 +1,31 @@
 <template>
-  <div :class="inputClass">
+  <form :class="inputClass" @submit.prevent="emitMessage">
     <input
-      ref="input"
+      v-model="inputValue"
       placeholder="Type something"
       type="text"
       class="input__text-field"
     />
-    <button class="input__button" @click="emitMessage" />
-  </div>
+    <button class="input__button" type="submit" />
+  </form>
 </template>
 
 <script setup>
+//TODO v-if hide element with <transition> animation
+
 import { ref, computed } from "vue";
 const emit = defineEmits(["message"]);
 const props = defineProps({ shown: Boolean });
-const input = ref(null);
+const inputValue = ref("");
 
 const inputClass = computed(() => {
   if (props.shown) return "input";
   return "input--hidden";
 });
+
 function emitMessage() {
-  emit("message", input.value.value);
+  emit("message", inputValue.value);
+  inputValue.value = "";
 }
 </script>
 
