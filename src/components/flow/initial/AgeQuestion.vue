@@ -6,7 +6,7 @@
         <input
           id="ageSlider"
           ref="input"
-          v-model="inputValue"
+          v-model.number="inputValue"
           :disabled="disabled"
           class="input"
           :class="{ 'input--disabled': disabled }"
