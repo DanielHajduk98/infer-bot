@@ -189,7 +189,7 @@ onMounted(() => {
 })
 
 function handleDone() {
-  emit("done", undefined);
+  emit("done");
 }
 </script>
 
