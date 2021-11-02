@@ -8,6 +8,7 @@
     "dev": "vite"
   },
   "dependencies": {
+    "hammerjs": "^2.0.8",
     "pinia": "^2.0.0-rc.13",
     "vue": "^3.2.16",
     "vue-router": "^4.0.12"
