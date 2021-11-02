@@ -2,7 +2,7 @@
   <div class="container-msg" ref="container">
     <MessageButton
        class="button-go--back"
-      :style="buttonNotAllowed != 'Left' ? null : 'opacity: 0;'"
+      :disabled="buttonNotAllowed != 'Left' ? false : true"
       @click="go(true)"
     >
       <img src="../assets/images/svg/arrow_full.svg" />
@@ -27,7 +27,7 @@
     </div>
     <MessageButton
       class="button-go--next"
-      :style="buttonNotAllowed != 'Right' ? null : 'opacity: 0;'"
+      :disabled="buttonNotAllowed != 'Right' ? false : true"
       @click="go(false)"
     >
       <img
