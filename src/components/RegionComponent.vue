@@ -43,17 +43,16 @@
 import Hammer from "hammerjs"
 import { reactive, computed, onMounted} from "vue";
 
-import IMG_13 from "../assets/images/svg/map/US_CANADA.svg";
-import IMG_14 from "../assets/images/svg/map/CENTRAL_SOUTH_AMERICA.svg";
-import IMG_15 from "../assets/images/svg/map/EUROPE.svg";
-import IMG_16 from "../assets/images/svg/map/NORTH_AFRICA.svg";
-import IMG_17 from "../assets/images/svg/map/CENTRAL_AFRICA.svg";
-import IMG_18 from "../assets/images/svg/map/SOUTH_AFRICA.svg";
-import IMG_19 from "../assets/images/svg/map/AUSTRALIA_OCEANIA.svg";
-import IMG_20 from "../assets/images/svg/map/RUSSIA.svg";
-import IMG_21 from "../assets/images/svg/map/MIDDLE_EAST.svg";
-import IMG_236 from "../assets/images/svg/map/ASIA.svg";
-import MessageButton from "./MessageButton.vue";
+import US_CANADA from "../assets/images/svg/map/US_CANADA.svg";
+import CENTRAL_SOUTH_AMERICA from "../assets/images/svg/map/CENTRAL_SOUTH_AMERICA.svg";
+import EUROPE from "../assets/images/svg/map/EUROPE.svg";
+import NORTH_AFRICA from "../assets/images/svg/map/NORTH_AFRICA.svg";
+import CENTRAL_AFRICA from "../assets/images/svg/map/CENTRAL_AFRICA.svg";
+import SOUTH_AFRICA from "../assets/images/svg/map/SOUTH_AFRICA.svg";
+import AUSTRALIA_OCEANIA from "../assets/images/svg/map/AUSTRALIA_OCEANIA.svg";
+import RUSSIA from "../assets/images/svg/map/RUSSIA.svg";
+import MIDDLE_EAST from "../assets/images/svg/map/MIDDLE_EAST.svg";
+import ASIA from "../assets/images/svg/map/ASIA.svg";
 
 const state = reactive({
   current_tile: 0,
@@ -64,7 +63,7 @@ const state = reactive({
       choice_id: "absent",
       source: "predefined",
       name: "Recent travel to the United States or Canada",
-      img: IMG_13,
+      img: US_CANADA,
     },
     {
       id: "p_14",
@@ -72,7 +71,7 @@ const state = reactive({
       choice_id: "absent",
       source: "predefined",
       name: "Recent travel to Central or South America",
-      img: IMG_14,
+      img: CENTRAL_SOUTH_AMERICA,
     },
     {
       id: "p_15",
@@ -80,7 +79,7 @@ const state = reactive({
       choice_id: "absent",
       source: "predefined",
       name: "Recent travel to Europe",
-      img: IMG_15,
+      img: EUROPE,
     },
     {
       id: "p_16",
@@ -88,7 +87,7 @@ const state = reactive({
       choice_id: "absent",
       source: "predefined",
       name: "Recent travel to Northern Africa",
-      img: IMG_16,
+      img: NORTH_AFRICA,
     },
     {
       id: "p_17",
@@ -96,7 +95,7 @@ const state = reactive({
       choice_id: "absent",
       source: "predefined",
       name: "Recent travel to Central Africa",
-      img: IMG_17,
+      img: CENTRAL_AFRICA,
     },
     {
       id: "p_18",
@@ -104,7 +103,7 @@ const state = reactive({
       choice_id: "absent",
       source: "predefined",
       name: "Recent travel to Southern Africa",
-      img: IMG_18,
+      img: SOUTH_AFRICA,
     },
     {
       id: "p_19",
@@ -112,7 +111,7 @@ const state = reactive({
       choice_id: "absent",
       source: "predefined",
       name: "Recent travel to Australia and Oceania",
-      img: IMG_19,
+      img: AUSTRALIA_OCEANIA,
     },
     {
       id: "p_20",
@@ -120,7 +119,7 @@ const state = reactive({
       choice_id: "absent",
       source: "predefined",
       name: "Recent travel to Russia, Kazakhstan or Mongolia",
-      img: IMG_20,
+      img: RUSSIA,
     },
     {
       id: "p_21",
@@ -128,7 +127,7 @@ const state = reactive({
       choice_id: "absent",
       source: "predefined",
       name: "Recent travel to the Middle East",
-      img: IMG_21,
+      img: MIDDLE_EAST,
     },
     {
       id: "p_236",
@@ -136,7 +135,7 @@ const state = reactive({
       choice_id: "absent",
       source: "predefined",
       name: "Recent travel to Asia excluding Middle East, Russia, Mongolia and Kazakhstan",
-      img: IMG_236,
+      img: ASIA,
     },
   ],
 });
