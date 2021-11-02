@@ -10,7 +10,7 @@
     <div class="container-msg__region-display">
       <div
         v-for="(tile, index) in state.tiles"
-        :key="tile.text"
+        :key="tile.id"
         class="container-msg__region-tile"
         :data-index="index"
         :style="initialTransform(index)"
