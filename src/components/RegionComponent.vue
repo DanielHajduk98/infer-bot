@@ -3,7 +3,7 @@
     <MessageButton
        class="button-go--back"
       :disabled="buttonNotAllowed != 'Left' ? false : true"
-      @click="go(true)"
+      @click="swipe(true)"
     >
       <img src="../assets/images/svg/arrow_full.svg" />
     </MessageButton>
@@ -28,7 +28,7 @@
     <MessageButton
       class="button-go--next"
       :disabled="buttonNotAllowed != 'Right' ? false : true"
-      @click="go(false)"
+      @click="swipe(false)"
     >
       <img
         style="transform: rotate(180deg)"
@@ -164,7 +164,7 @@ const buttonNotAllowed = computed(() => {
   else return "null";
 });
 
-function go(direction) {
+function swipe(direction) {
   if (state.current_tile === 0 && direction) return;
   else if (state.current_tile === state.tiles.length - 1 && !direction) return;
 
@@ -183,8 +183,8 @@ function go(direction) {
 onMounted(() => {
     const container = document.querySelector(".container-msg")
     const HAMMER = Hammer(container)
-    HAMMER.on('swipeleft', () => go(false))
-    HAMMER.on('swiperight', () => go(true))
+    HAMMER.on('swipeleft', () => swipe(false))
+    HAMMER.on('swiperight', () => swipe(true))
 })
 
 function handleDone() {
