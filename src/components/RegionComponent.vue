@@ -42,6 +42,7 @@
 <script setup>
 import Hammer from "hammerjs"
 import { reactive, computed, onMounted} from "vue";
+
 import IMG_13 from "../assets/images/svg/map/US_CANADA.svg";
 import IMG_14 from "../assets/images/svg/map/CENTRAL_SOUTH_AMERICA.svg";
 import IMG_15 from "../assets/images/svg/map/EUROPE.svg";
@@ -179,7 +180,6 @@ function go(direction) {
     }%)`;
   });
 }
-
 
 onMounted(() => {
     const container = document.querySelector(".container-msg")
