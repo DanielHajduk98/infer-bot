@@ -5,6 +5,7 @@
       <MessageButton
         v-for="choice in props.question.items[0].choices"
         @click="handleChoice(choice)"
+        :disabled="buttonsDisabled"
         >{{ choice.label }}</MessageButton
       >
     </div>
