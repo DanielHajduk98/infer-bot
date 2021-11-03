@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import router from "../router/router.ts";
 
 export const useFlowStore = defineStore("api-store", {
   state: () => ({
@@ -21,7 +20,7 @@ export const useFlowStore = defineStore("api-store", {
       this.apiState.evidence.push(symptom);
     },
     getDiagnosis() {
-      fetch("https://api.infermedica.com/v3/diagnosis", {
+      const diagnosis = fetch("https://api.infermedica.com/v3/diagnosis", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,21 +28,17 @@ export const useFlowStore = defineStore("api-store", {
           "App-Key": import.meta.env.VITE_APP_KEY,
         },
         body: JSON.stringify({
+          extras: {
+            disable_groups: true,
+          },
           age: {
             value: this.apiState.age,
           },
           sex: this.apiState.sex.value,
           evidence: this.apiState.evidence,
         }),
-      })
-        .then((response) => response.json())
-        .then((response) => {
-          console.log(response);
-          this.diagnosis.diagnosisIsDone = true;
-          this.diagnosis = response;
-
-          router.push("/results");
-        });
+      });
+      return diagnosis;
     },
   },
 });

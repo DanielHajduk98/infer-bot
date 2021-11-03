@@ -25,6 +25,7 @@ import PlainUserResponse from "../components/flow/PlainUserResponse.vue";
 import UserResponse from "../components/flow/parse/UserResponse.vue";
 import ObviousAnswer from "../components/flow/parse/ObviousAnswer.vue";
 import NotObviousAnswer from "../components/flow/parse/NotObviousAnswer.vue";
+import apiQuestion from "../components/flow/diagnosis/apiQuestion.vue";
 
 export default {
   components: {
@@ -38,6 +39,7 @@ export default {
     ObviousAnswer,
     NotObviousAnswer,
     IncomprehensibleAnswer,
+    apiQuestion,
   },
   setup() {
     const store = useFlowStore();

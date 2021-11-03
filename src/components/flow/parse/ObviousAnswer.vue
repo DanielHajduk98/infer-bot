@@ -21,13 +21,27 @@ const store = inject("store");
 function next(more) {
   btnDisabled.value = true;
   if (more) {
+    // User has more symptoms to pass
     flow.push({
-      id: flow.length + 5,
+      id: flow.length + 1,
       props: {},
       component: "Question",
     });
   } else {
-    store.getDiagnosis();
+    // User has no more symptoms to pass
+    // Make call to /diagnosis and let api suggest next symptoms.
+    store
+      .getDiagnosis()
+      .then((response) => response.json())
+      .then((response) => {
+        flow.push({
+          id: flow.length + 1,
+          props: {
+            question: response.question,
+          },
+          component: "apiQuestion",
+        });
+      });
   }
 }
 </script>
