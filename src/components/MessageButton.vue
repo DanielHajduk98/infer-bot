@@ -1,5 +1,5 @@
 <template>
-  <button :class="buttonClass" :disabled="disabled">
+  <button class="button" :class="buttonClass" :disabled="disabled">
     <slot />
   </button>
 </template>
@@ -42,7 +42,6 @@ export default {
   white-space: nowrap;
 
   &--disabled {
-    @extend .button;
     filter: brightness(80%);
     pointer-events: none;
   }
@@ -50,6 +49,7 @@ export default {
   &:hover {
     background-color: #2c7bdb;
     color: #fff;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
   &:active {
