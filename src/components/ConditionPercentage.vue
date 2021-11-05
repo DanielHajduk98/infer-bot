@@ -13,7 +13,7 @@ defineProps({
   },
   percentage: {
     type: String,
-    default: "123",
+    default: "23",
   },
 });
 </script>
@@ -38,12 +38,12 @@ defineProps({
     height: 9px;
 
     &::-webkit-progress-bar {
-      background-color: $blue-light;
+      background-color: $light-grey;
       border-radius: 9px;
     }
 
     &::-webkit-progress-value {
-      background-color: $primary;
+      background-color: $blue-very-light;
       border-radius: 9px;
     }
   }
