@@ -17,12 +17,12 @@
 
 <script setup>
 import { inject, ref } from "vue";
+import insertDiagnosisQuestionToflow from "../../../composables/insertDiagnosisQuestionToFlow";
 
 const store = inject("store"),
   flow = inject("flow"),
   props = inject("props"),
-  btnDisabled = ref(false),
-  evidenceArray = [store.question.items];
+  btnDisabled = ref(false);
 
 const handleClick = async (item) => {
   btnDisabled.value = true;
@@ -41,43 +41,7 @@ const handleClick = async (item) => {
     },
   });
 
-  await store.getDiagnosis();
-
-  if (store.should_stop) return;
-
-  if (store.question.type === "single") {
-    flow.push({
-      id: flow.length + 1,
-      component: "QuestionSingle",
-      props: {
-        question: store.question,
-      },
-    });
-  } else if (store.question.type === "group_single") {
-    flow.push({
-      id: flow.length + 1,
-      component: "QuestionGroupSingle",
-      props: {
-        question: store.question,
-      },
-    });
-  } else if (store.question.type === "group_multiple") {
-    flow.push({
-      id: flow.length + 1,
-      component: "PlainResponse",
-      props: { message: store.question.text, type: "grey" },
-    });
-    flow.push({
-      id: flow.length + 1,
-      component: "QuestionSingle",
-      props: {
-        question: {
-          text: store.question.items[0].name,
-          items: [store.question.items[0]],
-        },
-      },
-    });
-  }
+  insertDiagnosisQuestionToflow();
 };
 </script>
 

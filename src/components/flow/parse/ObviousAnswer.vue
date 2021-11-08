@@ -14,9 +14,10 @@
 
 <script setup>
 import { inject, ref } from "vue";
+import insertDiagnosisQuestionToflow from "../../../composables/insertDiagnosisQuestionToFlow";
+
 const flow = inject("flow");
 const btnDisabled = ref(false);
-const store = inject("store");
 
 async function next(more) {
   btnDisabled.value = true;
@@ -27,43 +28,7 @@ async function next(more) {
       component: "Question",
     });
   } else {
-    await store.getDiagnosis();
-
-    if (store.should_stop) return;
-
-    if (store.question.type === "single") {
-      flow.push({
-        id: flow.length + 1,
-        component: "QuestionSingle",
-        props: {
-          question: store.question,
-        },
-      });
-    } else if (store.question.type === "group_single") {
-      flow.push({
-        id: flow.length + 1,
-        component: "QuestionGroupSingle",
-        props: {
-          question: store.question,
-        },
-      });
-    } else if (store.question.type === "group_multiple") {
-      flow.push({
-        id: flow.length + 1,
-        component: "PlainMessage",
-        props: { message: store.question.text, type: "grey" },
-      });
-      flow.push({
-        id: flow.length + 1,
-        component: "QuestionSingle",
-        props: {
-          question: {
-            text: store.question.items[0].name,
-            items: [store.question.items[0]],
-          },
-        },
-      });
-    }
+    insertDiagnosisQuestionToflow();
   }
 }
 </script>

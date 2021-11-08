@@ -2,14 +2,10 @@
   <message-box>
     {{ props.question.text }}
 
-    <div
-      class="buttons-container"
-      :class="{ isTypeGroupSingle: 'buttons-container--group-single' }"
-    >
+    <div class="buttons-container">
       <message-button
         v-for="(choice, index) in props.question.items[0].choices"
         :key="index"
-        :square="isTypeGroupSingle"
         :text="choice.label"
         :disabled="btnDisabled"
         @click="handleClick(choice)"
@@ -21,12 +17,12 @@
 
 <script setup>
 import { inject, ref } from "vue";
+import insertDiagnosisQuestionToflow from "../../../composables/insertDiagnosisQuestionToFlow";
 
 const store = inject("store"),
   flow = inject("flow"),
   props = inject("props"),
-  btnDisabled = ref(false),
-  isTypeGroupSingle = props.question.type === "group_single";
+  btnDisabled = ref(false);
 
 const handleClick = async (choice) => {
   btnDisabled.value = true;
@@ -45,61 +41,7 @@ const handleClick = async (choice) => {
     },
   });
 
-  if (store.question.type === "group_multiple") {
-    store.question.items.shift();
-    if (store.question.items.length >= 1) {
-      flow.push({
-        id: flow.length + 1,
-        component: "QuestionSingle",
-        props: {
-          question: {
-            text: store.question.items[0].name,
-            items: [store.question.items[0]],
-          },
-        },
-      });
-
-      return;
-    }
-  }
-
-  await store.getDiagnosis();
-
-  if (store.should_stop) return;
-
-  if (store.question.type === "single") {
-    flow.push({
-      id: flow.length + 1,
-      component: "QuestionSingle",
-      props: {
-        question: store.question,
-      },
-    });
-  } else if (store.question.type === "group_single") {
-    flow.push({
-      id: flow.length + 1,
-      component: "QuestionGroupSingle",
-      props: {
-        question: store.question,
-      },
-    });
-  } else if (store.question.type === "group_multiple") {
-    flow.push({
-      id: flow.length + 1,
-      component: "Question",
-      props: { text: store.question.text },
-    });
-    flow.push({
-      id: flow.length + 1,
-      component: "QuestionSingle",
-      props: {
-        question: {
-          text: store.question.items[0].name,
-          items: [store.question.items[0]],
-        },
-      },
-    });
-  }
+  insertDiagnosisQuestionToflow();
 };
 </script>
 
