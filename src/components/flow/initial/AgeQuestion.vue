@@ -72,7 +72,7 @@ const chooseAge = () => {
     flow.push({
       id: flow.length + 1,
       component: "Question",
-      props: { text: "Tell me what is you symptom?" },
+      props: {},
     });
   }, 800);
 };

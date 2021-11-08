@@ -23,8 +23,8 @@ async function next(more) {
   if (more) {
     flow.push({
       id: flow.length + 1,
+      props: {},
       component: "Question",
-      props: { text: "Tell me what is you symptom?" },
     });
   } else {
     await store.getDiagnosis();
