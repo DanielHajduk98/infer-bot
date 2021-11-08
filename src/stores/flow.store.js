@@ -13,15 +13,19 @@ export const useFlowStore = defineStore("api-store", {
       },
       evidence: [],
     },
-    diagnosisIsDone: true,
-    diagnosis: {},
+    should_stop: false,
+    conditions: {},
+    question: {},
+    isLoading: false,
   }),
   actions: {
     addEvidence(symptom) {
       this.apiState.evidence.push(symptom);
     },
-    getDiagnosis() {
-      fetch("https://api.infermedica.com/v3/diagnosis", {
+    async getDiagnosis() {
+      this.isLoading = true;
+
+      return fetch("https://api.infermedica.com/v3/diagnosis", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,10 +43,14 @@ export const useFlowStore = defineStore("api-store", {
         .then((response) => response.json())
         .then((response) => {
           console.log(response);
-          this.diagnosis.diagnosisIsDone = true;
-          this.diagnosis = response;
+          this.should_stop = this.diagnosis;
 
-          router.push("/results");
+          this.should_stop = response.should_stop;
+          this.conditions = response.conditions;
+          this.question = response?.question;
+          this.isLoading = false;
+
+          if (this.should_stop) router.push("/results");
         });
     },
   },

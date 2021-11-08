@@ -29,6 +29,7 @@ function next(more) {
     store.apiState.evidence.push({
       id: props.mentions[0].id,
       choice_id: props.mentions[0].choice_id,
+      source: "initial",
     });
   } else {
     let shiftedSymptoms = [...props.mentions];
