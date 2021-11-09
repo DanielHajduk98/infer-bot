@@ -71,7 +71,7 @@ const chooseAge = () => {
   setTimeout(() => {
     flow.push({
       id: flow.length + 1,
-      component: "Question",
+      component: "RiskfactorRegion",
       props: {},
     });
   }, 800);

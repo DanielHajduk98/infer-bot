@@ -30,6 +30,8 @@ import QuestionGroupSingle from "../components/flow/questions/QuestionGroupSingl
 import Results from "../components/flow/results/Results.vue";
 import TriageRecomendation from "../components/flow/results/TriageRecomendation.vue";
 import TriageAlarmingSymptoms from "../components/flow/results/TriageAlarmingSymptoms.vue";
+import RiskfactorRegion from "../components/flow/initial/RiskfactorRegion.vue";
+import RiskfactorSuggestions from "../components/flow/initial/RiskfactorSuggetions.vue";
 
 export default {
   components: {
@@ -48,6 +50,8 @@ export default {
     Results,
     TriageRecomendation,
     TriageAlarmingSymptoms,
+    RiskfactorRegion,
+    RiskfactorSuggestions,
   },
   setup() {
     const store = useFlowStore();

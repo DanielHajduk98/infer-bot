@@ -1,7 +1,7 @@
 <template>
-  <div class="container-msg" ref="container">
+  <div ref="container" class="container-msg">
     <MessageButton
-       class="button-go--back"
+      class="button-go--back"
       :disabled="buttonNotAllowed != 'Left' ? false : true"
       @click="swipe(true)"
     >
@@ -19,6 +19,7 @@
         <img class="container-msg__region-icon" :src="tile.img" alt="" />
         <MessageButton
           class="container-msg__region-button"
+          :disabled="state.done"
           @click="handleSelectButton(index)"
         >
           {{ tile.selected ? "Unselect" : "Select" }}
@@ -36,12 +37,14 @@
       />
     </MessageButton>
   </div>
-  <MessageButton class="button-done" @click="handleDone">Done</MessageButton>
+  <MessageButton class="button-done" :disabled="state.done" @click="handleDone"
+    >Done</MessageButton
+  >
 </template>
 
 <script setup>
-import Hammer from "hammerjs"
-import { reactive, computed, onMounted} from "vue";
+import Hammer from "hammerjs";
+import { reactive, computed, onMounted } from "vue";
 
 import US_CANADA from "../assets/images/svg/map/US_CANADA.svg";
 import CENTRAL_SOUTH_AMERICA from "../assets/images/svg/map/CENTRAL_SOUTH_AMERICA.svg";
@@ -56,6 +59,7 @@ import ASIA from "../assets/images/svg/map/ASIA.svg";
 
 const state = reactive({
   current_tile: 0,
+  done: false,
   tiles: [
     {
       id: "p_13",
@@ -181,13 +185,14 @@ function swipe(direction) {
 }
 
 onMounted(() => {
-    const container = document.querySelector(".container-msg")
-    const HAMMER = Hammer(container)
-    HAMMER.on('swipeleft', () => swipe(false))
-    HAMMER.on('swiperight', () => swipe(true))
-})
+  const container = document.querySelector(".container-msg");
+  const HAMMER = Hammer(container);
+  HAMMER.on("swipeleft", () => swipe(false));
+  HAMMER.on("swiperight", () => swipe(true));
+});
 
 function handleDone() {
+  state.done = true;
   emit("done");
 }
 </script>

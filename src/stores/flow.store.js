@@ -33,8 +33,8 @@ export const useFlowStore = defineStore("api-store", {
         "diagnosis",
         this.apiState.age,
         this.apiState.sex.value,
-
-        this.apiState.evidence
+        this.apiState.evidence,
+        "POST"
       )
         .then((response) => response.json())
         .then(async (response) => {
@@ -57,13 +57,25 @@ export const useFlowStore = defineStore("api-store", {
         "triage",
         this.apiState.age,
         this.apiState.sex.value,
-        this.apiState.evidence
+        this.apiState.evidence,
+        "POST"
       )
         .then((response) => response.json())
         .then((response) => {
           this.triageLevel = response.triage_level;
           this.alarmingSymptoms = response.serious;
         });
+    },
+
+    async getRiskFactors() {
+      return api(
+        "suggest",
+        this.apiState.age,
+        this.apiState.sex.value,
+        this.apiState.evidence,
+        "POST",
+        { suggest_method: "demographic_risk_factors" }
+      );
     },
   },
 });

@@ -5,22 +5,27 @@
  * @param {string} sex - Value of user's gender
  * @param {evidence} evidence - gathered evidences.
  */
-const api = async (endpoint, age, sex, evidence) => {
-  return fetch(`https://api.infermedica.com/v3/${endpoint}`, {
-    method: "POST",
+const api = async (endpoint, age, sex, evidence, method, bodyAssign) => {
+  let options = {
+    method,
     headers: {
       "Content-Type": "application/json",
       "App-Id": import.meta.env.VITE_APP_ID,
       "App-Key": import.meta.env.VITE_APP_KEY,
     },
-    body: JSON.stringify({
-      age: {
-        value: age,
-      },
-      sex: sex,
-      evidence: evidence,
-    }),
-  });
+  };
+  if (method !== "GET")
+    Object.assign(options, {
+      body: JSON.stringify({
+        age: {
+          value: age,
+        },
+        sex,
+        evidence,
+        ...bodyAssign,
+      }),
+    });
+  return fetch(`https://api.infermedica.com/v3/${endpoint}`, options);
 };
 
 export default api;

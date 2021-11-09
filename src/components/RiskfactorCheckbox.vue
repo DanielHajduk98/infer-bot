@@ -23,11 +23,14 @@
         <span class="checkbox__label-text">{{ risk_factor.name }}</span>
       </label>
     </div>
+    <MessageButton :disabled="isDone" class="checkbox__done" @click="handleDone"
+      >Done</MessageButton
+    >
   </div>
 </template>
 
 <script setup>
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 const props = defineProps({
   modelValue: {
     type: Array,
@@ -38,15 +41,17 @@ const props = defineProps({
     required: true,
   },
 });
-const emit = defineEmits(["update:modelValue"]);
 
+const emit = defineEmits(["update:modelValue", "done"]);
 const selected = reactive([]);
+const isDone = ref(false);
 
 function computeEnabled(id) {
   return selected.some((rfid) => rfid === id);
 }
 
 function handleCheckboxInput(id) {
+  if (isDone.value) return;
   const emitUpdate = () => {
     const emitPayload = props.riskFactors.map((rf) => {
       return {
@@ -62,6 +67,11 @@ function handleCheckboxInput(id) {
   rfindex === -1 ? selected.push(id) : selected.splice(rfindex, 1);
 
   emitUpdate();
+}
+
+function handleDone() {
+  isDone.value = true;
+  emit("done");
 }
 </script>
 
@@ -100,6 +110,11 @@ function handleCheckboxInput(id) {
     user-select: none;
     margin-left: 15px;
     font-size: $font-default;
+  }
+
+  &__done {
+    margin-top: 20px;
+    width: 100%;
   }
 }
 </style>
