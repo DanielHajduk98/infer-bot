@@ -37,7 +37,7 @@ export const useFlowStore = defineStore("api-store", {
         this.apiState.evidence
       )
         .then((response) => response.json())
-        .then((response) => {
+        .then(async (response) => {
           this.should_stop = this.diagnosis;
 
           this.should_stop = response.should_stop;
@@ -46,8 +46,23 @@ export const useFlowStore = defineStore("api-store", {
           this.isLoading = false;
 
           if (this.should_stop) {
+            await this.getTriage();
             insertResultsToFlow();
           }
+        });
+    },
+
+    async getTriage() {
+      return api(
+        "triage",
+        this.apiState.age,
+        this.apiState.sex.value,
+        this.apiState.evidence
+      )
+        .then((response) => response.json())
+        .then((response) => {
+          this.triageLevel = response.triage_level;
+          this.alarmingSymptoms = response.serious;
         });
     },
   },

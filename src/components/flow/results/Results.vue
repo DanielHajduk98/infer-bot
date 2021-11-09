@@ -31,7 +31,7 @@ const props = inject("props");
   height: 100%;
 
   &__heading {
-    margin: 0;
+    margin-bottom: 8px;
     font-weight: 600;
     font-size: $font-medium;
     line-height: $font-line-medium;
@@ -39,9 +39,9 @@ const props = inject("props");
 
   &__paragraph {
     font-size: $font-extra-small;
-    line-height: $font-line-small;
+    line-height: $font-line-default;
     font-weight: 600;
-    margin-bottom: 21px;
+    margin-bottom: 15px;
   }
 
   &__condition {

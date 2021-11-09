@@ -3,37 +3,43 @@
     <div class="alarming">
       <h2 class="alarming__heading">Alarming Symptoms</h2>
       <ul>
-        <li>Confusion after an injury</li>
-        <li>Shortness of breath starting within the hour</li>
-        <li>Blood oxygen level between 90 and 94%</li>
-        <li>Breathing problems after an injury</li>
-        <li>Sudden breathing problems after an injury</li>
+        <li v-for="(symptom, index) in props.symptoms" :key="index">
+          {{ symptom.common_name }}
+        </li>
       </ul>
     </div>
   </message-box>
 </template>
 
-<script setup></script>
+<script setup>
+import { inject } from "vue";
+
+const props = inject("props");
+</script>
 
 <style scoped lang="scss">
 .alarming {
   &__heading {
-    margin-top: 0;
     font-weight: 600;
     font-size: $font-line-small;
     line-height: $font-line-medium;
+    margin-bottom: 9px;
   }
 
   ul {
-    padding: 0 0 0 13px;
-    list-style-type: disc;
-  }
+    list-style: disc inside;
+    padding: 0;
 
-  ul > li {
-    font-weight: normal;
-    font-size: $font-extra-small;
-    line-height: $font-extra-small;
-    margin-bottom: 9px;
+    li {
+      font-weight: normal;
+      font-size: $font-extra-small;
+      line-height: $font-extra-small;
+      margin-bottom: 9px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 }
 </style>
