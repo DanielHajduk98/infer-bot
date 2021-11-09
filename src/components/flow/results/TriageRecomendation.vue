@@ -16,7 +16,7 @@ const paragraph = ref(""),
   heading = ref(""),
   type = ref("");
 
-switch ("self_care") {
+switch (props.triageLevel) {
   case "emergency_ambulance":
     paragraph.value =
       "Your symptoms are very serious, and you may require emergency care.";
