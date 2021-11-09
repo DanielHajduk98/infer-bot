@@ -30,8 +30,8 @@ function chooseSex(sex) {
 
   flow.push({
     id: flow.length + 1,
-    component: "PlainUserResponse",
-    props: { message: sex },
+    component: "PlainMessage",
+    props: { type: "grey", message: sex },
   });
 
   setTimeout(() => {

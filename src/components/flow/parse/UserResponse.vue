@@ -27,18 +27,19 @@ fetch("https://api.infermedica.com/v3/parse", {
 })
   .then((response) => response.json())
   .then((response) => {
-    console.log(response);
     if (response.mentions.length !== 0) {
       if (response.obvious === true) {
-        console.log(response);
         flow.push({
           id: flow.length + 1,
           props: {},
           component: "ObviousAnswer",
         });
+        // FIXME only sends first mention.
+        // TODO move this to store
         store.apiState.evidence.push({
           id: response.mentions[0].id,
           choice_id: response.mentions[0].choice_id,
+          source: "initial",
         });
       } else {
         flow.push({

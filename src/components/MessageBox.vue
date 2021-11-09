@@ -1,5 +1,5 @@
 <template>
-  <div :class="type">
+  <div class="message" :class="getClass">
     <slot />
   </div>
 </template>
@@ -12,7 +12,7 @@ const props = defineProps({
     default: "primary",
   },
 });
-const type = computed(() => "message--" + props.type);
+const getClass = computed(() => "message--" + props.type);
 </script>
 
 <style lang="scss" scoped>
@@ -24,14 +24,38 @@ const type = computed(() => "message--" + props.type);
   animation: init 400ms forwards;
 
   &--primary {
-    @extend .message;
-    background: #3f94ff;
-    color: #fff;
+    background: $primary;
+    color: $white;
   }
+
+  &--danger {
+    background: $danger;
+    color: $white;
+  }
+
+  &--danger-light {
+    background: $danger-light;
+    color: $white;
+  }
+
+  &--warning {
+    background: $warning;
+    color: $white;
+  }
+
+  &--success-light {
+    background: $success-light;
+    color: $white;
+  }
+
+  &--success {
+    background: $success;
+    color: $white;
+  }
+
   &--grey {
-    @extend .message;
-    background: #deedff;
-    color: #112950;
+    background: $grey-extreme-light;
+    color: $text;
   }
 }
 

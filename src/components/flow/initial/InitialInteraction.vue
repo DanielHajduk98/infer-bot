@@ -21,8 +21,8 @@ function next() {
     flow.push({
       id: 2,
 
-      component: "PlainUserResponse",
-      props: { message: "Let's go!" },
+      component: "PlainMessage",
+      props: { type: "grey", message: "Let's go!" },
     });
 
     setTimeout(() => {

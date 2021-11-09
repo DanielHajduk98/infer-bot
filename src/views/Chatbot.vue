@@ -21,10 +21,15 @@ import GenderQuestion from "../components/flow/initial/GenderQuestion.vue";
 import AgeQuestion from "../components/flow/initial/AgeQuestion.vue";
 import Question from "../components/flow/initial/Question.vue";
 import IncomprehensibleAnswer from "../components/flow/parse/IncomprehensibleAnswer.vue";
-import PlainUserResponse from "../components/flow/PlainUserResponse.vue";
+import PlainMessage from "../components/flow/PlainMessage.vue";
 import UserResponse from "../components/flow/parse/UserResponse.vue";
 import ObviousAnswer from "../components/flow/parse/ObviousAnswer.vue";
 import NotObviousAnswer from "../components/flow/parse/NotObviousAnswer.vue";
+import QuestionSingle from "../components/flow/questions/QuestionSingle.vue";
+import QuestionGroupSingle from "../components/flow/questions/QuestionGroupSingle.vue";
+import Results from "../components/flow/results/Results.vue";
+import TriageRecomendation from "../components/flow/results/TriageRecomendation.vue";
+import TriageAlarmingSymptoms from "../components/flow/results/TriageAlarmingSymptoms.vue";
 
 export default {
   components: {
@@ -32,12 +37,17 @@ export default {
     InitialInteraction,
     GenderQuestion,
     AgeQuestion,
-    PlainUserResponse,
+    PlainMessage,
     Question,
     UserResponse,
     ObviousAnswer,
     NotObviousAnswer,
     IncomprehensibleAnswer,
+    QuestionSingle,
+    QuestionGroupSingle,
+    Results,
+    TriageRecomendation,
+    TriageAlarmingSymptoms,
   },
   setup() {
     const store = useFlowStore();
