@@ -1,5 +1,5 @@
 <template>
-  <message-box type="grey">
+  <message-box :type="props.type">
     {{ props.message }}
   </message-box>
 </template>

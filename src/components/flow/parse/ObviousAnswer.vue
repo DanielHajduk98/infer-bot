@@ -1,6 +1,6 @@
 <template>
   <message-box>
-    Ok, I get that. Did you noticed any more symptoms?
+    Ok, I get that. Did you notice any more symptoms?
     <div class="btn-container">
       <message-button :disabled="btnDisabled" @click="next(true)">
         Yes
@@ -14,20 +14,21 @@
 
 <script setup>
 import { inject, ref } from "vue";
+import insertDiagnosisQuestionToflow from "../../../composables/insertDiagnosisQuestionToFlow";
+
 const flow = inject("flow");
 const btnDisabled = ref(false);
-const store = inject("store");
 
-function next(more) {
+async function next(more) {
   btnDisabled.value = true;
   if (more) {
     flow.push({
-      id: flow.length + 5,
+      id: flow.length + 1,
       props: {},
       component: "Question",
     });
   } else {
-    store.getDiagnosis();
+    insertDiagnosisQuestionToflow();
   }
 }
 </script>

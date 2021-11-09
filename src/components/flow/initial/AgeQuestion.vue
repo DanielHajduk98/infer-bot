@@ -64,8 +64,8 @@ const chooseAge = () => {
 
   flow.push({
     id: flow.length + 1,
-    component: "PlainUserResponse",
-    props: { message: inputValue.value },
+    component: "PlainMessage",
+    props: { type: "grey", message: inputValue.value },
   });
 
   setTimeout(() => {
