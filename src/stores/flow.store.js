@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import router from "../router/router.ts";
+import insertResultsToFlow from "../composables/insertResultsToFlow.js";
 
 export const useFlowStore = defineStore("api-store", {
   state: () => ({
@@ -42,7 +42,6 @@ export const useFlowStore = defineStore("api-store", {
       })
         .then((response) => response.json())
         .then((response) => {
-          console.log(response);
           this.should_stop = this.diagnosis;
 
           this.should_stop = response.should_stop;
@@ -50,7 +49,9 @@ export const useFlowStore = defineStore("api-store", {
           this.question = response?.question;
           this.isLoading = false;
 
-          if (this.should_stop) router.push("/results");
+          if (this.should_stop) {
+            insertResultsToFlow();
+          }
         });
     },
   },

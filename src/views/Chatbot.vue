@@ -27,6 +27,9 @@ import ObviousAnswer from "../components/flow/parse/ObviousAnswer.vue";
 import NotObviousAnswer from "../components/flow/parse/NotObviousAnswer.vue";
 import QuestionSingle from "../components/flow/questions/QuestionSingle.vue";
 import QuestionGroupSingle from "../components/flow/questions/QuestionGroupSingle.vue";
+import Results from "../components/flow/results/Results.vue";
+import TriageRecomendation from "../components/flow/results/TriageRecomendation.vue";
+import TriageAlarmingSymptoms from "../components/flow/results/TriageAlarmingSymptoms.vue";
 
 export default {
   components: {
@@ -42,6 +45,9 @@ export default {
     IncomprehensibleAnswer,
     QuestionSingle,
     QuestionGroupSingle,
+    Results,
+    TriageRecomendation,
+    TriageAlarmingSymptoms,
   },
   setup() {
     const store = useFlowStore();

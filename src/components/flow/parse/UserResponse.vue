@@ -34,6 +34,8 @@ fetch("https://api.infermedica.com/v3/parse", {
           props: {},
           component: "ObviousAnswer",
         });
+        // FIXME only sends first mention.
+        // TODO move this to store
         store.apiState.evidence.push({
           id: response.mentions[0].id,
           choice_id: response.mentions[0].choice_id,
