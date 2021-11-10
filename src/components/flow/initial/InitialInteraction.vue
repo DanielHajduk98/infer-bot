@@ -17,9 +17,9 @@ import MessageButton from "../../MessageButton.vue";
 const btnDisabled = ref(false),
   flow = useFlowStore();
 
-function next() {
+const next = async () => {
   btnDisabled.value = true;
-  flow.push("PlainMessage", { type: "grey", message: "Let's go!" });
-  flow.push("GenderQuestion");
-}
+  await flow.push("PlainMessage", { type: "grey", message: "Let's go!" }, true);
+  await flow.push("GenderQuestion");
+};
 </script>

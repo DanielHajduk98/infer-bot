@@ -11,12 +11,10 @@ import { useFlowStore } from "../../../stores/flow.store";
 
 const flow = useFlowStore();
 
-flow.push("InitialInteraction");
+onMounted(async () => {
+  await flow.push("InitialInteraction");
 
-const flowState = computed(() => flow.flowState);
-
-onMounted(() => {
-  watch(flowState, () => {
+  watch(flow.flow, () => {
     setTimeout(() => {
       document.querySelector("#scroll").scrollIntoView();
     }, 200);

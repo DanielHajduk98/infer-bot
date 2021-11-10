@@ -23,11 +23,11 @@ store
   .then((response) => response.json())
   .then((json) => (risk_factors.value = json));
 
-function handleDone() {
+async function handleDone() {
   const evidence = store.apiState.evidence;
   if (selected.value.length) {
     store.apiState.evidence = [...evidence, ...selected.value];
   }
-  flow.push("Question");
+  await flow.push("Question", {}, true);
 }
 </script>

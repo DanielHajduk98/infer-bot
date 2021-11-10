@@ -1,10 +1,10 @@
 <template>
   <message-box>
-    {{ props.question.text }}
+    {{ question.text }}
 
     <div class="buttons-container">
       <message-button
-        v-for="(item, index) in props.question.items"
+        v-for="(item, index) in question.items"
         :key="index"
         :square="true"
         :disabled="btnDisabled"
@@ -22,7 +22,13 @@ import { useFlowStore } from "../../../stores/flow.store";
 
 const btnDisabled = ref(false),
   store = useApiStore(),
-  flow = useFlowStore();
+  flow = useFlowStore(),
+  props = defineProps({
+    question: {
+      type: Object,
+      required: true,
+    },
+  });
 
 const handleClick = async (item) => {
   btnDisabled.value = true;
@@ -32,10 +38,14 @@ const handleClick = async (item) => {
     choice_id: "present",
   });
 
-  flow.push("PlainMessage", {
-    type: "grey",
-    message: item.name,
-  });
+  await flow.push(
+    "PlainMessage",
+    {
+      type: "grey",
+      message: item.name,
+    },
+    true
+  );
 
   flow.insertDiagnosisQuestionToflow();
 };

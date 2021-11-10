@@ -11,8 +11,6 @@
 </template>
 
 <script setup>
-//TODO v-if hide element with <transition> animation
-
 import { ref, computed } from "vue";
 const emit = defineEmits(["message"]);
 const props = defineProps({ shown: Boolean });

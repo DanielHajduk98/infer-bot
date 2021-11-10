@@ -21,9 +21,11 @@ const flow = useFlowStore(),
 
 async function next(more) {
   btnDisabled.value = true;
+
   if (more) {
-    flow.push("Question");
+    await flow.push("Question", {}, true);
   } else {
+    flow.show_input = false;
     flow.insertDiagnosisQuestionToflow();
   }
 }

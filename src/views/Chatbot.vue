@@ -49,15 +49,22 @@ export default {
   setup() {
     const flowStore = useFlowStore();
 
-    function handleMessage(e) {
-      console.log("handle message");
+    async function handleMessage(e) {
       flowStore.input_value = e;
+
+      await flowStore.push(
+        "UserResponse",
+        {
+          message: flowStore.input_value,
+        },
+        true
+      );
     }
 
     const flow = computed(() => flowStore.flow);
 
-    onMounted(() => {
-      flowStore.push("Introduction");
+    onMounted(async () => {
+      await flowStore.push("Introduction", {}, true);
     });
 
     return {

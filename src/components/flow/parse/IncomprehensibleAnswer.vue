@@ -11,18 +11,6 @@ import { useFlowStore } from "../../../stores/flow.store";
 const flow = useFlowStore();
 
 flow.show_input = true;
-watch(
-  () => flow.input_value,
-  () => {
-    if (flow.show_input === true) {
-      flow.push("UserResponse", {
-        message: flow.input_value,
-      }),
-        (flow.input_value = "");
-    }
-    flow.show_input = false;
-  }
-);
 </script>
 
 <style scoped>

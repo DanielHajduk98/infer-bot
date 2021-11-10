@@ -10,13 +10,19 @@ export const useFlowStore = defineStore("flow-store", {
   }),
 
   actions: {
-    push(component, properties, noTimeout) {
-      setTimeout(() => {
-        this.flow.push({
-          component: component,
-          properties: properties,
-        });
-      }, noTimeout && this.flowPushTimeout);
+    push(component, properties = {}, noTimeout = false) {
+      return new Promise((resolve) => {
+        setTimeout(
+          () => {
+            this.flow.push({
+              component: component,
+              properties: properties,
+            });
+            resolve();
+          },
+          noTimeout ? 0 : this.flowPushTimeout
+        );
+      });
     },
 
     async insertDiagnosisQuestionToflow() {
@@ -25,16 +31,12 @@ export const useFlowStore = defineStore("flow-store", {
       if (store.question.type === "group_multiple") {
         store.question.items.shift();
         if (store.question.items.length >= 1) {
-          this.push(
-            "QuestionSingle",
-            {
-              question: {
-                text: store.question.items[0].name,
-                items: [store.question.items[0]],
-              },
+          await this.push("QuestionSingle", {
+            question: {
+              text: store.question.items[0].name,
+              items: [store.question.items[0]],
             },
-            true
-          );
+          });
 
           return;
         }
@@ -45,37 +47,37 @@ export const useFlowStore = defineStore("flow-store", {
       if (store.should_stop) return;
 
       if (store.question.type === "single") {
-        this.push("QuestionSingle", { question: store.question }, true);
+        await this.push("QuestionSingle", { question: store.question }, true);
       } else if (store.question.type === "group_single") {
-        this.push("QuestionGroupSingle", { question: store.question }, true);
-      } else if (store.question.type === "group_multiple") {
-        this.push("PlainMessage", { message: store.question.text });
-        this.push(
-          "QuestionSingle",
-          {
-            question: {
-              text: store.question.items[0].name,
-              items: [store.question.items[0]],
-            },
-          },
+        await this.push(
+          "QuestionGroupSingle",
+          { question: store.question },
           true
         );
+      } else if (store.question.type === "group_multiple") {
+        await this.push("PlainMessage", { message: store.question.text }, true);
+        await this.push("QuestionSingle", {
+          question: {
+            text: store.question.items[0].name,
+            items: [store.question.items[0]],
+          },
+        });
       }
     },
 
-    insertResultsToFlow() {
+    async insertResultsToFlow() {
       const store = useApiStore();
 
-      this.push("TriageRecomendation", {
+      await this.push("TriageRecomendation", {
         triageLevel: store.triageLevel,
       });
 
       store.alarmingSymptoms.length &&
-        this.push("TriageAlarmingSymptoms", {
+        (await this.push("TriageAlarmingSymptoms", {
           symptoms: store.alarmingSymptoms,
-        });
+        }));
 
-      this.push("Results", { conditions: store.conditions });
+      await this.push("Results", { conditions: store.conditions });
     },
   },
 });

@@ -27,13 +27,13 @@ const btnDisabled = ref(false),
   store = useApiStore(),
   flow = useFlowStore();
 
-function chooseSex(sex) {
+async function chooseSex(sex) {
   store.apiState.sex.value = sex;
   btnDisabled.value = true;
 
-  flow.push("PlainMessage", { type: "grey", message: sex });
+  await flow.push("PlainMessage", { type: "grey", message: sex }, true);
 
-  flow.push("AgeQuestion", {
+  await flow.push("AgeQuestion", {
     min: 18,
     max: 130,
   });

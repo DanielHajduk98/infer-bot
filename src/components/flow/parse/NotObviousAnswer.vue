@@ -1,6 +1,6 @@
 <template>
   <message-box>
-    {{ props.mentions[0].common_name }} - Is this your symptom?
+    {{ mentions.common_name }} - Is this your symptom?
     <div class="btn-container">
       <message-button :disabled="btnDisabled" @click="next(true)">
         Yes
@@ -27,24 +27,25 @@ const flow = useFlowStore(),
   }),
   store = useApiStore();
 
-function next(more) {
+// Mentions should be an array.
+async function next(more) {
   btnDisabled.value = true;
   if (more) {
-    flow.push("ObviousAnswer");
+    await flow.push("ObviousAnswer");
     store.apiState.evidence.push({
-      id: props.mentions[0].id,
-      choice_id: props.mentions[0].choice_id,
+      id: props.mentions.id,
+      choice_id: props.mentions.choice_id,
       source: "initial",
     });
   } else {
     let shiftedSymptoms = [...props.mentions];
     shiftedSymptoms.shift();
     if (shiftedSymptoms.length >= 1) {
-      flow.push("NotObviousAnswer", {
+      await flow.push("NotObviousAnswer", {
         mentions: shiftedSymptoms,
       });
     } else {
-      flow.push("IncomprehensibleAnswer", { message: "123" });
+      await flow.push("IncomprehensibleAnswer", { message: "123" });
     }
   }
 }

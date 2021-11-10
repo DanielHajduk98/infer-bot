@@ -69,13 +69,17 @@ const onSliderChange = () => {
     ((inputValue.value - props.min) * 100) / range.value + "%";
 };
 
-const chooseAge = () => {
+const chooseAge = async () => {
   store.apiState.age = inputValue.value;
   disabled.value = true;
 
-  flow.push("PlainMessage", { type: "grey", message: inputValue.value });
+  await flow.push(
+    "PlainMessage",
+    { type: "grey", message: inputValue.value },
+    true
+  );
 
-  flow.push("RiskfactorRegion");
+  await flow.push("RiskfactorRegion");
 };
 
 onMounted(() => {

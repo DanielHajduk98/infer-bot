@@ -1,10 +1,10 @@
 <template>
   <message-box>
-    {{ props.question.text }}
+    {{ question.text }}
 
     <div class="buttons-container">
       <message-button
-        v-for="(choice, index) in props.question.items[0].choices"
+        v-for="(choice, index) in question.items[0].choices"
         :key="index"
         :text="choice.label"
         :disabled="btnDisabled"
@@ -38,10 +38,14 @@ const handleClick = async (choice) => {
     choice_id: choice.id,
   });
 
-  flow.push("PlainMessage", {
-    type: "grey",
-    message: choice.label,
-  });
+  await flow.push(
+    "PlainMessage",
+    {
+      type: "grey",
+      message: choice.label,
+    },
+    true
+  );
 
   flow.insertDiagnosisQuestionToflow();
 };

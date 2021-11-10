@@ -13,7 +13,7 @@ const visitedRegions = ref([]),
   flow = useFlowStore(),
   store = useApiStore();
 
-function handleFinish() {
+async function handleFinish() {
   const visitedRegMapped = visitedRegions.value
     .map(({ id, choice_id, source }) => {
       return {
@@ -28,6 +28,6 @@ function handleFinish() {
     store.apiState.evidence = [...store.apiState.evidence, ...visitedRegMapped];
   }
 
-  flow.push("RiskfactorSuggestions");
+  await flow.push("RiskfactorSuggestions", {}, true);
 }
 </script>
