@@ -3,21 +3,24 @@
 </template>
 
 <script setup>
-import { inject, watch } from "vue";
-const flow = inject("flow");
-const store = inject("store");
-store.show_input = true;
+import { watch } from "vue";
+import useApiStore from "../../../stores/api.store";
+import { useFlowStore } from "../../../stores/flow.store";
+
+const store = useApiStore(),
+  flow = useFlowStore();
+
+flow.show_input = true;
+
 watch(
-  () => store.input_value,
+  () => flow.input_value,
   () => {
-    if (store.show_input === true) {
-      flow.push({
-        component: "UserResponse",
-        props: {
-          message: store.input_value,
-        },
+    console.log("watcher in question");
+    if (flow.show_input === true) {
+      flow.push("UserResponse", {
+        message: flow.input_value,
       }),
-        (store.input_value = "");
+        (flow.input_value = "");
     }
     store.show_input = false;
   }

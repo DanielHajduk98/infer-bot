@@ -1,81 +1,81 @@
 import { defineStore } from "pinia";
-import insertResultsToFlow from "../composables/insertResultsToFlow.js";
-import api from "../utils/api.js";
+import useApiStore from "../stores/api.store.js";
 
-export const useFlowStore = defineStore("api-store", {
+export const useFlowStore = defineStore("flow-store", {
   state: () => ({
-    freeze: false,
     show_input: false,
     input_value: "",
-    apiState: {
-      age: null,
-      sex: {
-        value: null,
-      },
-      evidence: [],
-    },
-    should_stop: false,
-    conditions: {},
-    question: {},
-    isLoading: false,
-    triageLevel: null,
-    alarmingSymptoms: null,
+    flow: [],
+    flowPushTimeout: 800,
   }),
+
   actions: {
-    addEvidence(symptom) {
-      this.apiState.evidence.push(symptom);
-    },
-
-    async getDiagnosis() {
-      this.isLoading = true;
-
-      return api(
-        "diagnosis",
-        this.apiState.age,
-        this.apiState.sex.value,
-        this.apiState.evidence,
-        "POST"
-      )
-        .then((response) => response.json())
-        .then(async (response) => {
-          this.should_stop = this.diagnosis;
-
-          this.should_stop = response.should_stop;
-          this.conditions = response.conditions;
-          this.question = response?.question;
-          this.isLoading = false;
-
-          if (this.should_stop) {
-            await this.getTriage();
-            insertResultsToFlow();
-          }
+    push(component, properties, noTimeout) {
+      setTimeout(() => {
+        this.flow.push({
+          component: component,
+          properties: properties,
         });
+      }, noTimeout && this.flowPushTimeout);
     },
 
-    async getTriage() {
-      return api(
-        "triage",
-        this.apiState.age,
-        this.apiState.sex.value,
-        this.apiState.evidence,
-        "POST"
-      )
-        .then((response) => response.json())
-        .then((response) => {
-          this.triageLevel = response.triage_level;
-          this.alarmingSymptoms = response.serious;
+    async insertDiagnosisQuestionToflow() {
+      const store = useApiStore();
+
+      if (store.question.type === "group_multiple") {
+        store.question.items.shift();
+        if (store.question.items.length >= 1) {
+          this.push(
+            "QuestionSingle",
+            {
+              question: {
+                text: store.question.items[0].name,
+                items: [store.question.items[0]],
+              },
+            },
+            true
+          );
+
+          return;
+        }
+      }
+
+      await store.getDiagnosis();
+
+      if (store.should_stop) return;
+
+      if (store.question.type === "single") {
+        this.push("QuestionSingle", { question: store.question }, true);
+      } else if (store.question.type === "group_single") {
+        this.push("QuestionGroupSingle", { question: store.question }, true);
+      } else if (store.question.type === "group_multiple") {
+        this.push("PlainMessage", { message: store.question.text });
+        this.push(
+          "QuestionSingle",
+          {
+            question: {
+              text: store.question.items[0].name,
+              items: [store.question.items[0]],
+            },
+          },
+          true
+        );
+      }
+    },
+
+    insertResultsToFlow() {
+      const store = useApiStore();
+
+      this.push("TriageRecomendation", {
+        triageLevel: store.triageLevel,
+      });
+
+      store.alarmingSymptoms.length &&
+        this.push("TriageAlarmingSymptoms", {
+          symptoms: store.alarmingSymptoms,
         });
-    },
 
-    async getRiskFactors() {
-      return api(
-        "suggest",
-        this.apiState.age,
-        this.apiState.sex.value,
-        this.apiState.evidence,
-        "POST",
-        { suggest_method: "demographic_risk_factors" }
-      );
+      this.push("Results", { conditions: store.conditions });
     },
   },
 });

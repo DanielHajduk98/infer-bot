@@ -11,24 +11,15 @@
 </template>
 
 <script setup>
-import { inject, ref } from "vue";
+import { ref } from "vue";
+import { useFlowStore } from "../../../stores/flow.store";
 import MessageButton from "../../MessageButton.vue";
-const flow = inject("flow");
-const btnDisabled = ref(false);
+const btnDisabled = ref(false),
+  flow = useFlowStore();
 
 function next() {
-  if (!btnDisabled.value) {
-    flow.push({
-      component: "PlainMessage",
-      props: { type: "grey", message: "Let's go!" },
-    });
-
-    setTimeout(() => {
-      flow.push({
-        component: "GenderQuestion",
-      });
-    }, 800);
-  }
   btnDisabled.value = true;
+  flow.push("PlainMessage", { type: "grey", message: "Let's go!" });
+  flow.push("GenderQuestion");
 }
 </script>

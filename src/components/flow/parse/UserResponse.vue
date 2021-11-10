@@ -5,10 +5,17 @@
 </template>
 
 <script setup>
-import { inject } from "vue";
-const flow = inject("flow");
-const store = inject("store");
-const props = inject("props");
+import useApiStore from "../../../stores/api.store";
+import { useFlowStore } from "../../../stores/flow.store";
+
+const flow = useFlowStore(),
+  store = useApiStore(),
+  props = defineProps({
+    message: {
+      type: String,
+      default: "",
+    },
+  });
 
 fetch("https://api.infermedica.com/v3/parse", {
   method: "POST",
@@ -29,9 +36,7 @@ fetch("https://api.infermedica.com/v3/parse", {
   .then((response) => {
     if (response.mentions.length !== 0) {
       if (response.obvious === true) {
-        flow.push({
-          component: "ObviousAnswer",
-        });
+        flow.push("ObviousAnswer");
         // FIXME only sends first mention.
         // TODO move this to store
         store.apiState.evidence.push({
@@ -40,17 +45,12 @@ fetch("https://api.infermedica.com/v3/parse", {
           source: "initial",
         });
       } else {
-        flow.push({
-          props: {
-            mentions: response.mentions,
-          },
-          component: "NotObviousAnswer",
+        flow.push("NotObviousAnswer", {
+          mentions: response.mentions[0],
         });
       }
     } else {
-      flow.push({
-        component: "IncomprehensibleAnswer",
-      });
+      flow.push("IncomprehensibleAnswer");
     }
   });
 </script>

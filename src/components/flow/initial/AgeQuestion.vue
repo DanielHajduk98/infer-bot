@@ -38,11 +38,22 @@
 </template>
 
 <script setup>
-import { inject, ref, onMounted, computed } from "vue-demi";
+import { ref, onMounted, computed } from "vue-demi";
+import useApiStore from "../../../stores/api.store";
+import { useFlowStore } from "../../../stores/flow.store";
 
-const flow = inject("flow");
-const store = inject("store");
-const props = inject("props");
+const props = defineProps({
+    min: {
+      type: Number,
+      default: 18,
+    },
+    max: {
+      type: Number,
+      default: 130,
+    },
+  }),
+  flow = useFlowStore(),
+  store = useApiStore();
 
 const slider = ref(),
   thumb = ref(),
@@ -62,16 +73,9 @@ const chooseAge = () => {
   store.apiState.age = inputValue.value;
   disabled.value = true;
 
-  flow.push({
-    component: "PlainMessage",
-    props: { type: "grey", message: inputValue.value },
-  });
+  flow.push("PlainMessage", { type: "grey", message: inputValue.value });
 
-  setTimeout(() => {
-    flow.push({
-      component: "RiskfactorRegion",
-    });
-  }, 800);
+  flow.push("RiskfactorRegion");
 };
 
 onMounted(() => {

@@ -13,20 +13,18 @@
 </template>
 
 <script setup>
-import { inject, ref } from "vue";
-import insertDiagnosisQuestionToflow from "../../../composables/insertDiagnosisQuestionToFlow";
+import { ref } from "vue";
+import { useFlowStore } from "../../../stores/flow.store";
 
-const flow = inject("flow");
-const btnDisabled = ref(false);
+const flow = useFlowStore(),
+  btnDisabled = ref(false);
 
 async function next(more) {
   btnDisabled.value = true;
   if (more) {
-    flow.push({
-      component: "Question",
-    });
+    flow.push("Question");
   } else {
-    insertDiagnosisQuestionToflow();
+    flow.insertDiagnosisQuestionToflow();
   }
 }
 </script>

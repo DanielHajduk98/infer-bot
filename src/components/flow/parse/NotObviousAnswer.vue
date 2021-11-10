@@ -13,17 +13,24 @@
 </template>
 
 <script setup>
-import { inject, ref } from "vue";
-const flow = inject("flow");
-const btnDisabled = ref(false);
-const props = inject("props");
-const store = inject("store");
+import { ref } from "vue";
+import useApiStore from "../../../stores/api.store";
+import { useFlowStore } from "../../../stores/flow.store";
+
+const flow = useFlowStore(),
+  btnDisabled = ref(false),
+  props = defineProps({
+    mentions: {
+      type: Object,
+      required: true,
+    },
+  }),
+  store = useApiStore();
+
 function next(more) {
   btnDisabled.value = true;
   if (more) {
-    flow.push({
-      component: "ObviousAnswer",
-    });
+    flow.push("ObviousAnswer");
     store.apiState.evidence.push({
       id: props.mentions[0].id,
       choice_id: props.mentions[0].choice_id,
@@ -33,17 +40,11 @@ function next(more) {
     let shiftedSymptoms = [...props.mentions];
     shiftedSymptoms.shift();
     if (shiftedSymptoms.length >= 1) {
-      flow.push({
-        props: {
-          mentions: shiftedSymptoms,
-        },
-        component: "NotObviousAnswer",
+      flow.push("NotObviousAnswer", {
+        mentions: shiftedSymptoms,
       });
     } else {
-      flow.push({
-        props: { message: "123" },
-        component: "IncomprehensibleAnswer",
-      });
+      flow.push("IncomprehensibleAnswer", { message: "123" });
     }
   }
 }

@@ -9,12 +9,14 @@
 </template>
 
 <script setup>
-import { ref, inject } from "vue";
+import { ref } from "vue";
+import useApiStore from "../../../stores/api.store";
+import { useFlowStore } from "../../../stores/flow.store";
 
-const store = inject("store");
-const flow = inject("flow");
-const selected = ref([]);
-const risk_factors = ref([]);
+const store = useApiStore(),
+  flow = useFlowStore(),
+  selected = ref([]),
+  risk_factors = ref([]);
 
 store
   .getRiskFactors()
@@ -26,8 +28,6 @@ function handleDone() {
   if (selected.value.length) {
     store.apiState.evidence = [...evidence, ...selected.value];
   }
-  flow.push({
-    component: "Question",
-  });
+  flow.push("Question");
 }
 </script>

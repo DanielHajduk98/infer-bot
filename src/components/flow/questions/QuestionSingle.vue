@@ -16,12 +16,18 @@
 </template>
 
 <script setup>
-import { inject, ref } from "vue";
-import insertDiagnosisQuestionToflow from "../../../composables/insertDiagnosisQuestionToFlow";
+import { ref } from "vue";
+import useApiStore from "../../../stores/api.store";
+import { useFlowStore } from "../../../stores/flow.store";
 
-const store = inject("store"),
-  flow = inject("flow"),
-  props = inject("props"),
+const store = useApiStore(),
+  flow = useFlowStore(),
+  props = defineProps({
+    question: {
+      type: Object,
+      required: true,
+    },
+  }),
   btnDisabled = ref(false);
 
 const handleClick = async (choice) => {
@@ -32,15 +38,12 @@ const handleClick = async (choice) => {
     choice_id: choice.id,
   });
 
-  flow.push({
-    component: "PlainMessage",
-    props: {
-      type: "grey",
-      message: choice.label,
-    },
+  flow.push("PlainMessage", {
+    type: "grey",
+    message: choice.label,
   });
 
-  insertDiagnosisQuestionToflow();
+  flow.insertDiagnosisQuestionToflow();
 };
 </script>
 
