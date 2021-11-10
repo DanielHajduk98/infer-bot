@@ -7,10 +7,6 @@ import { useFlowStore } from "../stores/flow.store.js";
 import { provide } from "vue";
 export default {
   props: {
-    id: {
-      type: Number,
-      required: true,
-    },
     props: {
       type: Object,
       required: true,
@@ -32,7 +28,6 @@ export default {
     provide("store", store);
     provide("flow", props.flow);
     provide("props", props.props);
-    provide("id", props.id);
     if (props.state) {
       provide("state", props.state);
     }

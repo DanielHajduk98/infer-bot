@@ -63,16 +63,13 @@ const chooseAge = () => {
   disabled.value = true;
 
   flow.push({
-    id: flow.length + 1,
     component: "PlainMessage",
     props: { type: "grey", message: inputValue.value },
   });
 
   setTimeout(() => {
     flow.push({
-      id: flow.length + 1,
       component: "RiskfactorRegion",
-      props: {},
     });
   }, 800);
 };

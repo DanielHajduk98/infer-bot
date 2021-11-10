@@ -9,9 +9,7 @@
 import { inject, onMounted, watch } from "vue";
 const flow = inject("flow");
 flow.push({
-  id: flow.length + 1,
   component: "InitialInteraction",
-  props: {},
 });
 
 onMounted(() => {

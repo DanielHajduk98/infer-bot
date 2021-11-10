@@ -33,7 +33,6 @@ const handleClick = async (item) => {
   });
 
   flow.push({
-    id: flow.length + 1,
     component: "PlainMessage",
     props: {
       type: "grey",

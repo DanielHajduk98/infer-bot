@@ -14,7 +14,6 @@ watch(
   () => {
     if (store.show_input === true) {
       flow.push({
-        id: 5,
         component: "UserResponse",
         props: {
           message: store.input_value,

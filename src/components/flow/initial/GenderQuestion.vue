@@ -29,14 +29,12 @@ function chooseSex(sex) {
   btnDisabled.value = true;
 
   flow.push({
-    id: flow.length + 1,
     component: "PlainMessage",
     props: { type: "grey", message: sex },
   });
 
   setTimeout(() => {
     flow.push({
-      id: flow.length + 1,
       component: "AgeQuestion",
       props: {
         min: 18,

@@ -9,7 +9,6 @@ const insertDiagnosisQuestionToflow = async () => {
     store.question.items.shift();
     if (store.question.items.length >= 1) {
       flow.push({
-        id: flow.length + 1,
         component: "QuestionSingle",
         props: {
           question: {
@@ -29,7 +28,6 @@ const insertDiagnosisQuestionToflow = async () => {
 
   if (store.question.type === "single") {
     flow.push({
-      id: flow.length + 1,
       component: "QuestionSingle",
       props: {
         question: store.question,
@@ -37,7 +35,6 @@ const insertDiagnosisQuestionToflow = async () => {
     });
   } else if (store.question.type === "group_single") {
     flow.push({
-      id: flow.length + 1,
       component: "QuestionGroupSingle",
       props: {
         question: store.question,
@@ -45,12 +42,10 @@ const insertDiagnosisQuestionToflow = async () => {
     });
   } else if (store.question.type === "group_multiple") {
     flow.push({
-      id: flow.length + 1,
       component: "PlainMessage",
       props: { message: store.question.text },
     });
     flow.push({
-      id: flow.length + 1,
       component: "QuestionSingle",
       props: {
         question: {

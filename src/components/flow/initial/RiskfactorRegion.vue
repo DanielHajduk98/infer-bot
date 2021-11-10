@@ -27,9 +27,7 @@ function handleFinish() {
   }
 
   flow.push({
-    id: flow.length + 1,
     component: "RiskfactorSuggestions",
-    props: {},
   });
 }
 </script>

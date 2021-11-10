@@ -23,8 +23,6 @@ async function next(more) {
   btnDisabled.value = true;
   if (more) {
     flow.push({
-      id: flow.length + 1,
-      props: {},
       component: "Question",
     });
   } else {

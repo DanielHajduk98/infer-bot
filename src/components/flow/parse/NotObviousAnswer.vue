@@ -22,8 +22,6 @@ function next(more) {
   btnDisabled.value = true;
   if (more) {
     flow.push({
-      id: flow.length + 1,
-      props: {},
       component: "ObviousAnswer",
     });
     store.apiState.evidence.push({
@@ -36,7 +34,6 @@ function next(more) {
     shiftedSymptoms.shift();
     if (shiftedSymptoms.length >= 1) {
       flow.push({
-        id: flow.length + 1,
         props: {
           mentions: shiftedSymptoms,
         },
@@ -44,7 +41,6 @@ function next(more) {
       });
     } else {
       flow.push({
-        id: flow.length + 1,
         props: { message: "123" },
         component: "IncomprehensibleAnswer",
       });

@@ -30,8 +30,6 @@ fetch("https://api.infermedica.com/v3/parse", {
     if (response.mentions.length !== 0) {
       if (response.obvious === true) {
         flow.push({
-          id: flow.length + 1,
-          props: {},
           component: "ObviousAnswer",
         });
         // FIXME only sends first mention.
@@ -43,7 +41,6 @@ fetch("https://api.infermedica.com/v3/parse", {
         });
       } else {
         flow.push({
-          id: flow.length + 1,
           props: {
             mentions: response.mentions,
           },
@@ -52,8 +49,6 @@ fetch("https://api.infermedica.com/v3/parse", {
       }
     } else {
       flow.push({
-        id: flow.length + 1,
-        props: {},
         component: "IncomprehensibleAnswer",
       });
     }

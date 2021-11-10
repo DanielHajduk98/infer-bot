@@ -19,17 +19,13 @@ const btnDisabled = ref(false);
 function next() {
   if (!btnDisabled.value) {
     flow.push({
-      id: 2,
-
       component: "PlainMessage",
       props: { type: "grey", message: "Let's go!" },
     });
 
     setTimeout(() => {
       flow.push({
-        id: 3,
         component: "GenderQuestion",
-        props: {},
       });
     }, 800);
   }

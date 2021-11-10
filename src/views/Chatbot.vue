@@ -1,8 +1,7 @@
 <template>
   <FlowProvider
-    v-for="elem in chatFlowState"
-    :id="elem.id"
-    :key="elem.id"
+    v-for="(elem, index) in chatFlowState"
+    :key="index"
     :flow="chatFlowState"
     :props="elem.props"
     :state="elem.state"

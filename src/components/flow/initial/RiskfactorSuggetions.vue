@@ -27,8 +27,6 @@ function handleDone() {
     store.apiState.evidence = [...evidence, ...selected.value];
   }
   flow.push({
-    id: flow.length + 1,
-    props: {},
     component: "Question",
   });
 }
