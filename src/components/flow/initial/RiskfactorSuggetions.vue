@@ -24,7 +24,7 @@ store
 function handleDone() {
   const evidence = store.apiState.evidence;
   if (selected.value.length) {
-    store.apiState.evidence = [evidence, ...selected.value];
+    store.apiState.evidence = [...evidence, ...selected.value];
   }
   flow.push({
     id: flow.length + 1,

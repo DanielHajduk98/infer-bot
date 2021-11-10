@@ -1,5 +1,5 @@
 <template>
-  <message-box> Tell me what is you symptom? </message-box>
+  <message-box>Tell me what ails you.</message-box>
 </template>
 
 <script setup>

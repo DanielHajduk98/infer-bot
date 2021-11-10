@@ -1,7 +1,6 @@
 <template>
   <message-box>
-    Sorry, I'm not as smart as you are. 😞😘 Can you write you ailment again in
-    a little bit diffrent way so I can understand it better..? Please ❤️
+    Sorry, I didn't get that. Please write your symptom in a diffrent way.
   </message-box>
 </template>
 

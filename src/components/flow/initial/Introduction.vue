@@ -6,11 +6,19 @@
 </template>
 
 <script setup>
-import { inject } from "vue";
+import { inject, onMounted, watch } from "vue";
 const flow = inject("flow");
 flow.push({
   id: flow.length + 1,
   component: "InitialInteraction",
   props: {},
+});
+
+onMounted(() => {
+  watch(flow, () => {
+    setTimeout(() => {
+      document.querySelector("#scroll").scrollIntoView();
+    }, 200);
+  });
 });
 </script>
