@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import useApiStore from "../stores/api.store.js";
+import useApiStore from "@/stores/api.store.js";
 
 export const useFlowStore = defineStore("flow-store", {
   state: () => ({

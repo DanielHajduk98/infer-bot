@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { useFlowStore } from "../../../stores/flow.store";
+import { useFlowStore } from "@/stores/flow.store";
 
 const flow = useFlowStore();
 

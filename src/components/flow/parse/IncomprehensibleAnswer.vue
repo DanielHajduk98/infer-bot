@@ -6,7 +6,7 @@
 
 <script setup>
 import { watch } from "vue";
-import { useFlowStore } from "../../../stores/flow.store";
+import { useFlowStore } from "@/stores/flow.store";
 
 const flow = useFlowStore();
 

@@ -39,8 +39,8 @@
 
 <script setup>
 import { ref, onMounted, computed } from "vue-demi";
-import useApiStore from "../../../stores/api.store";
-import { useFlowStore } from "../../../stores/flow.store";
+import useApiStore from "@/stores/api.store";
+import { useFlowStore } from "@/stores/flow.store";
 
 const props = defineProps({
     min: {
@@ -138,7 +138,7 @@ label {
   }
 
   .tooltip {
-    background-image: url("../../../assets/images/svg/pin.svg");
+    background-image: url("@/assets/images/svg/pin.svg");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
