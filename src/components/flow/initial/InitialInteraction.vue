@@ -12,8 +12,7 @@
 
 <script setup>
 import { ref } from "vue";
-import { useFlowStore } from "../../../stores/flow.store";
-import MessageButton from "../../MessageButton.vue";
+import { useFlowStore } from "@/stores/flow.store";
 const btnDisabled = ref(false),
   flow = useFlowStore();
 

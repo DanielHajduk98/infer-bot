@@ -20,8 +20,8 @@
 
 <script setup>
 import { ref } from "vue";
-import useApiStore from "../../../stores/api.store";
-import { useFlowStore } from "../../../stores/flow.store";
+import useApiStore from "@/stores/api.store";
+import { useFlowStore } from "@/stores/flow.store";
 
 const btnDisabled = ref(false),
   store = useApiStore(),

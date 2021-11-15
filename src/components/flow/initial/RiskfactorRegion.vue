@@ -6,8 +6,8 @@
 
 <script setup>
 import { ref } from "vue";
-import useApiStore from "../../../stores/api.store";
-import { useFlowStore } from "../../../stores/flow.store";
+import useApiStore from "@/stores/api.store";
+import { useFlowStore } from "@/stores/flow.store";
 
 const visitedRegions = ref([]),
   flow = useFlowStore(),

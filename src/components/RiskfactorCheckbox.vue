@@ -16,7 +16,7 @@
           <img
             v-if="computeEnabled(risk_factor.id)"
             draggable="false"
-            src="../assets/images/svg/done.svg"
+            src="@/assets/images/svg/done.svg"
             class="checkbox__checkbox-icon"
           />
         </div>

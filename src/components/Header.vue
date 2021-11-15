@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <img src="../assets/images/svg/logo.svg" class="header__logo" />
+    <img src="@/assets/images/svg/logo.svg" class="header__logo" />
     <h2 class="header__name">InferBot</h2>
   </div>
 </template>

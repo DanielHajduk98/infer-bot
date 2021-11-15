@@ -5,7 +5,7 @@
       :disabled="buttonNotAllowed != 'Left' ? false : true"
       @click="swipe(true)"
     >
-      <img src="../assets/images/svg/arrow_full.svg" />
+      <img src="@/assets/images/svg/arrow_full.svg" />
     </MessageButton>
     <div class="container-msg__region-display">
       <div
@@ -33,7 +33,7 @@
     >
       <img
         style="transform: rotate(180deg)"
-        src="../assets/images/svg/arrow_full.svg"
+        src="@/assets/images/svg/arrow_full.svg"
       />
     </MessageButton>
   </div>
@@ -46,16 +46,16 @@
 import Hammer from "hammerjs";
 import { reactive, computed, onMounted } from "vue";
 
-import US_CANADA from "../assets/images/svg/map/US_CANADA.svg";
-import CENTRAL_SOUTH_AMERICA from "../assets/images/svg/map/CENTRAL_SOUTH_AMERICA.svg";
-import EUROPE from "../assets/images/svg/map/EUROPE.svg";
-import NORTH_AFRICA from "../assets/images/svg/map/NORTH_AFRICA.svg";
-import CENTRAL_AFRICA from "../assets/images/svg/map/CENTRAL_AFRICA.svg";
-import SOUTH_AFRICA from "../assets/images/svg/map/SOUTH_AFRICA.svg";
-import AUSTRALIA_OCEANIA from "../assets/images/svg/map/AUSTRALIA_OCEANIA.svg";
-import RUSSIA from "../assets/images/svg/map/RUSSIA.svg";
-import MIDDLE_EAST from "../assets/images/svg/map/MIDDLE_EAST.svg";
-import ASIA from "../assets/images/svg/map/ASIA.svg";
+import US_CANADA from "@/assets/images/svg/map/US_CANADA.svg";
+import CENTRAL_SOUTH_AMERICA from "@/assets/images/svg/map/CENTRAL_SOUTH_AMERICA.svg";
+import EUROPE from "@/assets/images/svg/map/EUROPE.svg";
+import NORTH_AFRICA from "@/assets/images/svg/map/NORTH_AFRICA.svg";
+import CENTRAL_AFRICA from "@/assets/images/svg/map/CENTRAL_AFRICA.svg";
+import SOUTH_AFRICA from "@/assets/images/svg/map/SOUTH_AFRICA.svg";
+import AUSTRALIA_OCEANIA from "@/assets/images/svg/map/AUSTRALIA_OCEANIA.svg";
+import RUSSIA from "@/assets/images/svg/map/RUSSIA.svg";
+import MIDDLE_EAST from "@/assets/images/svg/map/MIDDLE_EAST.svg";
+import ASIA from "@/assets/images/svg/map/ASIA.svg";
 
 const state = reactive({
   current_tile: 0,

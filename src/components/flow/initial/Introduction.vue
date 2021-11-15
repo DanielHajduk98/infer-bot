@@ -7,7 +7,7 @@
 
 <script setup>
 import { computed, onMounted, watch } from "vue";
-import { useFlowStore } from "../../../stores/flow.store";
+import { useFlowStore } from "@/stores/flow.store";
 
 const flow = useFlowStore();
 
