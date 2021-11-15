@@ -8,11 +8,15 @@
 </template>
 
 <script setup>
-import { inject, ref } from "vue";
+import { ref } from "vue";
 
-const props = inject("props");
-
-const paragraph = ref(""),
+const props = defineProps({
+    triageLevel: {
+      type: String,
+      required: true,
+    },
+  }),
+  paragraph = ref(""),
   heading = ref(""),
   type = ref("");
 

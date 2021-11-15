@@ -6,16 +6,15 @@
 </template>
 
 <script setup>
-import { inject, onMounted, watch } from "vue";
-const flow = inject("flow");
-flow.push({
-  id: flow.length + 1,
-  component: "InitialInteraction",
-  props: {},
-});
+import { computed, onMounted, watch } from "vue";
+import { useFlowStore } from "../../../stores/flow.store";
 
-onMounted(() => {
-  watch(flow, () => {
+const flow = useFlowStore();
+
+onMounted(async () => {
+  await flow.push("InitialInteraction");
+
+  watch(flow.flow, () => {
     setTimeout(() => {
       document.querySelector("#scroll").scrollIntoView();
     }, 200);

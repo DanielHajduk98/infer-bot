@@ -1,20 +1,12 @@
 <template>
-  <FlowProvider
-    v-for="elem in chatFlowState"
-    :id="elem.id"
-    :key="elem.id"
-    :flow="chatFlowState"
-    :props="elem.props"
-    :state="elem.state"
-  >
-    <component :is="elem.component" />
-  </FlowProvider>
-  <MessageInput :shown="store.$state.show_input" @message="handleMessage" />
+  <template v-for="(elem, index) in flow" :key="index">
+    <component :is="elem.component" v-bind="elem.properties" />
+  </template>
+  <MessageInput :shown="flowStore.$state.show_input" @message="handleMessage" />
 </template>
 
 <script>
 import { useFlowStore } from "../stores/flow.store.js";
-import { chatFlowState } from "../utils/flow.core.js";
 import Introduction from "../components/flow/initial/Introduction.vue";
 import InitialInteraction from "../components/flow/initial/InitialInteraction.vue";
 import GenderQuestion from "../components/flow/initial/GenderQuestion.vue";
@@ -32,6 +24,7 @@ import TriageRecomendation from "../components/flow/results/TriageRecomendation.
 import TriageAlarmingSymptoms from "../components/flow/results/TriageAlarmingSymptoms.vue";
 import RiskfactorRegion from "../components/flow/initial/RiskfactorRegion.vue";
 import RiskfactorSuggestions from "../components/flow/initial/RiskfactorSuggetions.vue";
+import { computed, onMounted } from "vue";
 
 export default {
   components: {
@@ -54,15 +47,29 @@ export default {
     RiskfactorSuggestions,
   },
   setup() {
-    const store = useFlowStore();
+    const flowStore = useFlowStore();
 
-    function handleMessage(e) {
-      store.input_value = e;
+    async function handleMessage(e) {
+      flowStore.input_value = e;
+
+      await flowStore.push(
+        "UserResponse",
+        {
+          message: flowStore.input_value,
+        },
+        true
+      );
     }
 
+    const flow = computed(() => flowStore.flow);
+
+    onMounted(async () => {
+      await flowStore.push("Introduction", {}, true);
+    });
+
     return {
-      store,
-      chatFlowState,
+      flowStore,
+      flow,
       handleMessage,
     };
   },

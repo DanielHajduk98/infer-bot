@@ -19,31 +19,24 @@
 </template>
 
 <script setup>
-import { inject, ref } from "vue";
-const flow = inject("flow");
-const store = inject("store");
-const btnDisabled = ref(false);
+import { ref } from "vue";
+import useApiStore from "../../../stores/api.store";
+import { useFlowStore } from "../../../stores/flow.store";
 
-function chooseSex(sex) {
+const btnDisabled = ref(false),
+  store = useApiStore(),
+  flow = useFlowStore();
+
+async function chooseSex(sex) {
   store.apiState.sex.value = sex;
   btnDisabled.value = true;
 
-  flow.push({
-    id: flow.length + 1,
-    component: "PlainMessage",
-    props: { type: "grey", message: sex },
-  });
+  await flow.push("PlainMessage", { type: "grey", message: sex }, true);
 
-  setTimeout(() => {
-    flow.push({
-      id: flow.length + 1,
-      component: "AgeQuestion",
-      props: {
-        min: 18,
-        max: 130,
-      },
-    });
-  }, 800);
+  await flow.push("AgeQuestion", {
+    min: 18,
+    max: 130,
+  });
 }
 </script>
 

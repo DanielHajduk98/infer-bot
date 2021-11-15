@@ -20,9 +20,12 @@
 </template>
 
 <script setup>
-import { inject } from "vue";
-
-const props = inject("props");
+const props = defineProps({
+  conditions: {
+    type: Object,
+    required: true,
+  },
+});
 </script>
 
 <style lang="scss" scoped>

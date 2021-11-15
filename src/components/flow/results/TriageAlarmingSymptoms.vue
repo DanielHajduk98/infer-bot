@@ -12,9 +12,12 @@
 </template>
 
 <script setup>
-import { inject } from "vue";
-
-const props = inject("props");
+const props = defineProps({
+  symptoms: {
+    type: Object,
+    required: true,
+  },
+});
 </script>
 
 <style scoped lang="scss">

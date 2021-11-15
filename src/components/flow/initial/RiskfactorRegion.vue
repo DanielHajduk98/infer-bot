@@ -5,31 +5,29 @@
 </template>
 
 <script setup>
-/* eslint-disable */
-import { ref, inject } from "vue";
-const visitedRegions = ref([]);
-const store = inject("store");
-const flow = inject("flow");
+import { ref } from "vue";
+import useApiStore from "../../../stores/api.store";
+import { useFlowStore } from "../../../stores/flow.store";
 
-function handleFinish() {
-  const visitedRegMapped = visitedRegions.value.map(
-    ({ id, choice_id, source }) => {
+const visitedRegions = ref([]),
+  flow = useFlowStore(),
+  store = useApiStore();
+
+async function handleFinish() {
+  const visitedRegMapped = visitedRegions.value
+    .map(({ id, choice_id, source }) => {
       return {
         id,
         choice_id,
         source,
       };
-    }
-  ).filter(x => x);
+    })
+    .filter((x) => x);
 
   if (visitedRegMapped.length) {
     store.apiState.evidence = [...store.apiState.evidence, ...visitedRegMapped];
   }
 
-  flow.push({
-    id: flow.length + 1,
-    component: "RiskfactorSuggestions",
-    props: {},
-  });
+  await flow.push("RiskfactorSuggestions", {}, true);
 }
 </script>

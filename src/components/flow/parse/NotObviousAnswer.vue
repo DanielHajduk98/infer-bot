@@ -1,6 +1,6 @@
 <template>
   <message-box>
-    {{ props.mentions[0].common_name }} - Is this your symptom?
+    {{ mentions.common_name }} - Is this your symptom?
     <div class="btn-container">
       <message-button :disabled="btnDisabled" @click="next(true)">
         Yes
@@ -13,41 +13,39 @@
 </template>
 
 <script setup>
-import { inject, ref } from "vue";
-const flow = inject("flow");
-const btnDisabled = ref(false);
-const props = inject("props");
-const store = inject("store");
-function next(more) {
+import { ref } from "vue";
+import useApiStore from "../../../stores/api.store";
+import { useFlowStore } from "../../../stores/flow.store";
+
+const flow = useFlowStore(),
+  btnDisabled = ref(false),
+  props = defineProps({
+    mentions: {
+      type: Object,
+      required: true,
+    },
+  }),
+  store = useApiStore();
+
+// Mentions should be an array.
+async function next(more) {
   btnDisabled.value = true;
   if (more) {
-    flow.push({
-      id: flow.length + 1,
-      props: {},
-      component: "ObviousAnswer",
-    });
+    await flow.push("ObviousAnswer");
     store.apiState.evidence.push({
-      id: props.mentions[0].id,
-      choice_id: props.mentions[0].choice_id,
+      id: props.mentions.id,
+      choice_id: props.mentions.choice_id,
       source: "initial",
     });
   } else {
     let shiftedSymptoms = [...props.mentions];
     shiftedSymptoms.shift();
     if (shiftedSymptoms.length >= 1) {
-      flow.push({
-        id: flow.length + 1,
-        props: {
-          mentions: shiftedSymptoms,
-        },
-        component: "NotObviousAnswer",
+      await flow.push("NotObviousAnswer", {
+        mentions: shiftedSymptoms,
       });
     } else {
-      flow.push({
-        id: flow.length + 1,
-        props: { message: "123" },
-        component: "IncomprehensibleAnswer",
-      });
+      await flow.push("IncomprehensibleAnswer", { message: "123" });
     }
   }
 }

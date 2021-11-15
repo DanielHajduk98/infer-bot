@@ -5,10 +5,19 @@
 </template>
 
 <script setup>
-import { inject } from "vue";
-const flow = inject("flow");
-const store = inject("store");
-const props = inject("props");
+import useApiStore from "../../../stores/api.store";
+import { useFlowStore } from "../../../stores/flow.store";
+
+const flow = useFlowStore(),
+  store = useApiStore(),
+  props = defineProps({
+    message: {
+      type: String,
+      required: true,
+    },
+  });
+
+console.log(props.message);
 
 fetch("https://api.infermedica.com/v3/parse", {
   method: "POST",
@@ -26,14 +35,10 @@ fetch("https://api.infermedica.com/v3/parse", {
   }),
 })
   .then((response) => response.json())
-  .then((response) => {
+  .then(async (response) => {
     if (response.mentions.length !== 0) {
       if (response.obvious === true) {
-        flow.push({
-          id: flow.length + 1,
-          props: {},
-          component: "ObviousAnswer",
-        });
+        await flow.push("ObviousAnswer");
         // FIXME only sends first mention.
         // TODO move this to store
         store.apiState.evidence.push({
@@ -42,20 +47,12 @@ fetch("https://api.infermedica.com/v3/parse", {
           source: "initial",
         });
       } else {
-        flow.push({
-          id: flow.length + 1,
-          props: {
-            mentions: response.mentions,
-          },
-          component: "NotObviousAnswer",
+        await flow.push("NotObviousAnswer", {
+          mentions: response.mentions[0],
         });
       }
     } else {
-      flow.push({
-        id: flow.length + 1,
-        props: {},
-        component: "IncomprehensibleAnswer",
-      });
+      await flow.push("IncomprehensibleAnswer");
     }
   });
 </script>

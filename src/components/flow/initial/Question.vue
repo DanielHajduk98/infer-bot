@@ -3,26 +3,11 @@
 </template>
 
 <script setup>
-import { inject, watch } from "vue";
-const flow = inject("flow");
-const store = inject("store");
-store.show_input = true;
-watch(
-  () => store.input_value,
-  () => {
-    if (store.show_input === true) {
-      flow.push({
-        id: flow.length + 1,
-        component: "UserResponse",
-        props: {
-          message: store.input_value,
-        },
-      }),
-        (store.input_value = "");
-    }
-    store.show_input = false;
-  }
-);
+import { useFlowStore } from "../../../stores/flow.store";
+
+const flow = useFlowStore();
+
+flow.show_input = true;
 </script>
 
 <style scoped>
