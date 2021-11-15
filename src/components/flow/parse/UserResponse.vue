@@ -6,7 +6,6 @@
 
 <script setup>
 import useApiStore from "@/stores/api.store";
-import { useFlowStore } from "@/stores/flow.store";
 
 const store = useApiStore(),
   props = defineProps({

@@ -79,5 +79,19 @@ export const useFlowStore = defineStore("flow-store", {
 
       await this.push("Results", { conditions: store.conditions });
     },
+
+    async iterateNotObvioudAnswer() {
+      const store = useApiStore();
+
+      store.mentions.shift();
+
+      if (store.mentions.length >= 1) {
+        await this.push("NotObviousAnswer", {
+          mention: store.mentions[0],
+        });
+      } else {
+        await this.push("ObviousAnswer");
+      }
+    },
   },
 });

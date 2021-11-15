@@ -11,6 +11,7 @@ const useApiStore = defineStore("api-store", {
       },
       evidence: [],
     },
+    mentions: [],
     should_stop: false,
     conditions: {},
     question: {},
@@ -92,15 +93,23 @@ const useApiStore = defineStore("api-store", {
 
           if (response.mentions.length !== 0) {
             if (response.obvious === true) {
-              await flow.push("ObviousAnswer");
-              this.apiState.evidence.push({
-                id: response.mentions[0].id,
-                choice_id: response.mentions[0].choice_id,
-                source: "initial",
+              response.mentions.forEach((mention) => {
+                this.apiState.evidence.push({
+                  id: mention.id,
+                  choice_id: mention.choice_id,
+                  source: "initial",
+                });
               });
+              await flow.push("ObviousAnswer");
             } else {
+              this.mentions = response.mentions;
+
+              await flow.push("PlainMessage", {
+                message: "I didn't get that properly. Is this correct?:",
+              });
+
               await flow.push("NotObviousAnswer", {
-                mentions: response.mentions[0],
+                mention: this.mentions[0],
               });
             }
           } else {
