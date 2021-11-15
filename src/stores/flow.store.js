@@ -4,6 +4,7 @@ import useApiStore from "@/stores/api.store.js";
 export const useFlowStore = defineStore("flow-store", {
   state: () => ({
     show_input: false,
+    disable_input: false,
     input_value: "",
     flow: [],
     flowPushTimeout: 800,

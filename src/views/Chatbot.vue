@@ -2,7 +2,11 @@
   <template v-for="(elem, index) in flow" :key="index">
     <component :is="elem.component" v-bind="elem.properties" />
   </template>
-  <MessageInput :shown="flowStore.$state.show_input" @message="handleMessage" />
+  <MessageInput
+    :shown="flowStore.$state.show_input"
+    :disabled="messageInputDisabled"
+    @message="handleMessage"
+  />
 </template>
 
 <script>
@@ -61,7 +65,8 @@ export default {
       );
     }
 
-    const flow = computed(() => flowStore.flow);
+    const flow = computed(() => flowStore.flow),
+      messageInputDisabled = computed(() => flowStore.disable_input);
 
     onMounted(async () => {
       await flowStore.push("Introduction", {}, true);
@@ -71,6 +76,7 @@ export default {
       flowStore,
       flow,
       handleMessage,
+      messageInputDisabled,
     };
   },
 };

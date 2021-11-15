@@ -11,6 +11,7 @@ import { useFlowStore } from "@/stores/flow.store";
 const flow = useFlowStore();
 
 flow.show_input = true;
+flow.disable_input = false;
 </script>
 
 <style scoped>

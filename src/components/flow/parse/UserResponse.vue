@@ -6,14 +6,18 @@
 
 <script setup>
 import useApiStore from "@/stores/api.store";
+import { useFlowStore } from "@/stores/flow.store";
 
 const store = useApiStore(),
+  flow = useFlowStore(),
   props = defineProps({
     message: {
       type: String,
       required: true,
     },
   });
+
+flow.disable_input = true;
 
 store.NLP(props.message);
 </script>
