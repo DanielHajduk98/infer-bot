@@ -8,8 +8,7 @@
 import useApiStore from "@/stores/api.store";
 import { useFlowStore } from "@/stores/flow.store";
 
-const flow = useFlowStore(),
-  store = useApiStore(),
+const store = useApiStore(),
   props = defineProps({
     message: {
       type: String,
@@ -17,44 +16,7 @@ const flow = useFlowStore(),
     },
   });
 
-console.log(props.message);
-
-fetch("https://api.infermedica.com/v3/parse", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "App-Id": import.meta.env.VITE_APP_ID,
-    "App-Key": import.meta.env.VITE_APP_KEY,
-  },
-  body: JSON.stringify({
-    text: props.message,
-    age: {
-      value: store.apiState.age,
-    },
-    sex: store.apiState.sex.value,
-  }),
-})
-  .then((response) => response.json())
-  .then(async (response) => {
-    if (response.mentions.length !== 0) {
-      if (response.obvious === true) {
-        await flow.push("ObviousAnswer");
-        // FIXME only sends first mention.
-        // TODO move this to store
-        store.apiState.evidence.push({
-          id: response.mentions[0].id,
-          choice_id: response.mentions[0].choice_id,
-          source: "initial",
-        });
-      } else {
-        await flow.push("NotObviousAnswer", {
-          mentions: response.mentions[0],
-        });
-      }
-    } else {
-      await flow.push("IncomprehensibleAnswer");
-    }
-  });
+store.NLP(props.message);
 </script>
 
 <style scoped>

@@ -76,6 +76,38 @@ const useApiStore = defineStore("api-store", {
         { suggest_method: "demographic_risk_factors" }
       );
     },
+
+    async NLP(text) {
+      return api(
+        "parse",
+        this.apiState.age,
+        this.apiState.sex.value,
+        this.apiState.evidence,
+        "POST",
+        { text: text }
+      )
+        .then((response) => response.json())
+        .then(async (response) => {
+          const flow = useFlowStore();
+
+          if (response.mentions.length !== 0) {
+            if (response.obvious === true) {
+              await flow.push("ObviousAnswer");
+              this.apiState.evidence.push({
+                id: response.mentions[0].id,
+                choice_id: response.mentions[0].choice_id,
+                source: "initial",
+              });
+            } else {
+              await flow.push("NotObviousAnswer", {
+                mentions: response.mentions[0],
+              });
+            }
+          } else {
+            await flow.push("IncomprehensibleAnswer");
+          }
+        });
+    },
   },
 });
 
