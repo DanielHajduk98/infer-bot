@@ -4,6 +4,7 @@ import useApiStore from "@/stores/api.store.js";
 export const useFlowStore = defineStore("flow-store", {
   state: () => ({
     show_input: false,
+    disable_input: false,
     input_value: "",
     flow: [],
     flowPushTimeout: 800,
@@ -78,6 +79,20 @@ export const useFlowStore = defineStore("flow-store", {
         }));
 
       await this.push("Results", { conditions: store.conditions });
+    },
+
+    async iterateNotObvioudAnswer() {
+      const store = useApiStore();
+
+      store.mentions.shift();
+
+      if (store.mentions.length >= 1) {
+        await this.push("NotObviousAnswer", {
+          mention: store.mentions[0],
+        });
+      } else {
+        await this.push("ObviousAnswer");
+      }
     },
   },
 });

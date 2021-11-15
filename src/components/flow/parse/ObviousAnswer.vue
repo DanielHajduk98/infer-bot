@@ -24,6 +24,7 @@ async function next(more) {
 
   if (more) {
     await flow.push("Question", {}, true);
+    flow.disable_input = false;
   } else {
     flow.show_input = false;
     flow.insertDiagnosisQuestionToflow();

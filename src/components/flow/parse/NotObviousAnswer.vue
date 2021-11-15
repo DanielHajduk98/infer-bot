@@ -1,6 +1,7 @@
 <template>
   <message-box>
-    {{ mentions.common_name }} - Is this your symptom?
+    {{ mention.choice_id === "absent" ? "You dont have: " : ""
+    }}{{ mention.common_name.toLowerCase() }} - Is it correct?
     <div class="btn-container">
       <message-button :disabled="btnDisabled" @click="next(true)">
         Yes
@@ -20,7 +21,7 @@ import { useFlowStore } from "@/stores/flow.store";
 const flow = useFlowStore(),
   btnDisabled = ref(false),
   props = defineProps({
-    mentions: {
+    mention: {
       type: Object,
       required: true,
     },
@@ -28,26 +29,24 @@ const flow = useFlowStore(),
   store = useApiStore();
 
 // Mentions should be an array.
-async function next(more) {
+async function next(value) {
   btnDisabled.value = true;
-  if (more) {
-    await flow.push("ObviousAnswer");
-    store.apiState.evidence.push({
-      id: props.mentions.id,
-      choice_id: props.mentions.choice_id,
-      source: "initial",
-    });
-  } else {
-    let shiftedSymptoms = [...props.mentions];
-    shiftedSymptoms.shift();
-    if (shiftedSymptoms.length >= 1) {
-      await flow.push("NotObviousAnswer", {
-        mentions: shiftedSymptoms,
-      });
-    } else {
-      await flow.push("IncomprehensibleAnswer", { message: "123" });
-    }
-  }
+
+  store.apiState.evidence.push({
+    id: props.mention.id,
+    choice_id: value ? props.mention.choice_id : "absent",
+    source: "initial",
+  });
+
+  await flow.push(
+    "PlainMessage",
+    {
+      type: "grey",
+      message: `${value ? "Yes" : "No"}`,
+    },
+    true
+  );
+  await flow.iterateNotObvioudAnswer();
 }
 </script>
 

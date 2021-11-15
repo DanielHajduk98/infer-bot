@@ -5,15 +5,19 @@
       placeholder="Type something"
       type="text"
       class="input__text-field"
+      :disabled="disabled"
     />
-    <button class="input__button" type="submit" />
+    <button :disabled="disabled" class="input__button" type="submit" />
   </form>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
 const emit = defineEmits(["message"]);
-const props = defineProps({ shown: Boolean });
+const props = defineProps({
+  shown: { type: Boolean, default: true },
+  disabled: { type: Boolean, default: false },
+});
 const inputValue = ref("");
 
 const inputClass = computed(() => {

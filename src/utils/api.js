@@ -4,7 +4,7 @@
  * @param {number} age - Age of user
  * @param {string} sex - Value of user's gender
  * @param {evidence} evidence - gathered evidences.
- * @param {object} bodyAssign - 
+ * @param {object} bodyAssign - object with properties spreaded and added to body
  */
 const api = async (endpoint, age, sex, evidence, method, bodyAssign) => {
   let options = {
