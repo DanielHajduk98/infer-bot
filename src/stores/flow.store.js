@@ -7,7 +7,7 @@ export const useFlowStore = defineStore("flow-store", {
     disable_input: false,
     input_value: "",
     flow: [],
-    flowPushTimeout: 400,
+    flowPushTimeout: 300,
   }),
 
   actions: {
