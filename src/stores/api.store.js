@@ -66,11 +66,12 @@ const useApiStore = defineStore("api-store", {
         .then((response) => {
           this.triageLevel = response.triage_level;
           this.alarmingSymptoms = response.serious;
-          this.isLoading = false;
         });
     },
 
     async getRiskFactors() {
+      this.isLoading = true;
+
       return api(
         "suggest",
         this.apiState.age,
@@ -120,8 +121,6 @@ const useApiStore = defineStore("api-store", {
           } else {
             await flow.push("IncomprehensibleAnswer");
           }
-
-          this.isLoading = false;
         });
     },
   },

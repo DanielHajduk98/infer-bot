@@ -28,6 +28,14 @@ async function handleFinish() {
     store.apiState.evidence = [...store.apiState.evidence, ...visitedRegMapped];
   }
 
-  await flow.push("RiskfactorSuggestions", {});
+  let riskFactors;
+  await store
+    .getRiskFactors()
+    .then((response) => response.json())
+    .then((json) => (riskFactors = json));
+
+  await flow.push("RiskfactorSuggestions", {
+    riskFactors: riskFactors,
+  });
 }
 </script>

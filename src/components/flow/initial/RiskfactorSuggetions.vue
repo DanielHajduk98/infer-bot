@@ -2,7 +2,7 @@
   <MessageBox>
     <RiskfactorCheckbox
       v-model="selected"
-      :risk-factors="risk_factors"
+      :risk-factors="riskFactors"
       @done="handleDone"
     />
   </MessageBox>
@@ -16,12 +16,12 @@ import { useFlowStore } from "@/stores/flow.store";
 const store = useApiStore(),
   flow = useFlowStore(),
   selected = ref([]),
-  risk_factors = ref([]);
-
-store
-  .getRiskFactors()
-  .then((response) => response.json())
-  .then((json) => (risk_factors.value = json));
+  props = defineProps({
+    riskFactors: {
+      type: Array,
+      default: () => [],
+    },
+  });
 
 async function handleDone() {
   const evidence = store.apiState.evidence;
