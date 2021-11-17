@@ -28,6 +28,6 @@ async function handleFinish() {
     store.apiState.evidence = [...store.apiState.evidence, ...visitedRegMapped];
   }
 
-  await flow.push("RiskfactorSuggestions", {}, true);
+  await flow.push("RiskfactorSuggestions", {});
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div :class="loaderModifier">
+  <div class="loader" :class="loaderModifier">
     <div class="point" />
     <div class="point" />
     <div class="point" />
@@ -14,13 +14,13 @@ const props = defineProps({
     required: true,
   },
 });
-const loaderModifier = computed(() =>
-  props.loading ? "loader" : "loader--hidden"
-);
+const loaderModifier = computed(() => props.loading || "loader--hidden");
 </script>
 
 <style lang="scss" scoped>
 .loader {
+  $transition: 150ms ease-in-out;
+
   background: #dedede;
   width: 52px;
   height: 26px;
@@ -31,11 +31,11 @@ const loaderModifier = computed(() =>
   justify-content: center;
   margin-left: auto;
   grid-gap: 6px;
-  transition: all 150ms ease-in-out;
+  transition: opacity $transition, width $transition, height $transition;
   opacity: 1;
   overflow: hidden;
+
   &--hidden {
-    @extend .loader;
     opacity: 0;
     width: 0px;
     height: 0px;

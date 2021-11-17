@@ -2,6 +2,7 @@
   <template v-for="(elem, index) in flow" :key="index">
     <component :is="elem.component" v-bind="elem.properties" />
   </template>
+  <MessageLoading :loading="loading" />
   <MessageInput
     :shown="flowStore.$state.show_input"
     :disabled="messageInputDisabled"
@@ -10,6 +11,7 @@
 </template>
 
 <script>
+import useApiStore from "@/stores/api.store.js";
 import { useFlowStore } from "@/stores/flow.store.js";
 import Introduction from "@/components/flow/initial/Introduction.vue";
 import InitialInteraction from "@/components/flow/initial/InitialInteraction.vue";
@@ -29,6 +31,7 @@ import TriageAlarmingSymptoms from "@/components/flow/results/TriageAlarmingSymp
 import RiskfactorRegion from "@/components/flow/initial/RiskfactorRegion.vue";
 import RiskfactorSuggestions from "@/components/flow/initial/RiskfactorSuggetions.vue";
 import { computed, onMounted } from "vue";
+import MessageLoading from "@/components/MessageLoading.vue";
 
 export default {
   components: {
@@ -49,9 +52,11 @@ export default {
     TriageAlarmingSymptoms,
     RiskfactorRegion,
     RiskfactorSuggestions,
+    MessageLoading,
   },
   setup() {
-    const flowStore = useFlowStore();
+    const flowStore = useFlowStore(),
+      store = useApiStore();
 
     async function handleMessage(e) {
       flowStore.input_value = e;
@@ -66,7 +71,8 @@ export default {
     }
 
     const flow = computed(() => flowStore.flow),
-      messageInputDisabled = computed(() => flowStore.disable_input);
+      messageInputDisabled = computed(() => flowStore.disable_input),
+      loading = computed(() => store.isLoading);
 
     onMounted(async () => {
       await flowStore.push("Introduction", {}, true);
@@ -77,6 +83,7 @@ export default {
       flow,
       handleMessage,
       messageInputDisabled,
+      loading,
     };
   },
 };

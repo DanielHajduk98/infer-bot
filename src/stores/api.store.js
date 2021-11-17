@@ -53,6 +53,8 @@ const useApiStore = defineStore("api-store", {
     },
 
     async getTriage() {
+      this.isLoading = true;
+
       return api(
         "triage",
         this.apiState.age,
@@ -64,6 +66,7 @@ const useApiStore = defineStore("api-store", {
         .then((response) => {
           this.triageLevel = response.triage_level;
           this.alarmingSymptoms = response.serious;
+          this.isLoading = false;
         });
     },
 
@@ -79,6 +82,8 @@ const useApiStore = defineStore("api-store", {
     },
 
     async NLP(text) {
+      this.isLoading = true;
+
       return api(
         "parse",
         this.apiState.age,
@@ -115,6 +120,8 @@ const useApiStore = defineStore("api-store", {
           } else {
             await flow.push("IncomprehensibleAnswer");
           }
+
+          this.isLoading = false;
         });
     },
   },

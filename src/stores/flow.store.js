@@ -7,11 +7,15 @@ export const useFlowStore = defineStore("flow-store", {
     disable_input: false,
     input_value: "",
     flow: [],
-    flowPushTimeout: 800,
+    flowPushTimeout: 300,
   }),
 
   actions: {
     push(component, properties = {}, noTimeout = false) {
+      const store = useApiStore();
+
+      noTimeout || (store.isLoading = true);
+
       return new Promise((resolve) => {
         setTimeout(
           () => {
@@ -19,6 +23,7 @@ export const useFlowStore = defineStore("flow-store", {
               component: component,
               properties: properties,
             });
+            store.isLoading = false;
             resolve();
           },
           noTimeout ? 0 : this.flowPushTimeout
