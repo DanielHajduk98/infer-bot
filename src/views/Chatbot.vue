@@ -75,6 +75,7 @@ export default {
       loading = computed(() => store.isLoading);
 
     onMounted(async () => {
+      store.generateInterviewId();
       await flowStore.push("Introduction", {}, true);
     });
 

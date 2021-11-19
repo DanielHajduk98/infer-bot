@@ -1,10 +1,12 @@
 import { defineStore } from "pinia";
 import api from "@/utils/api.js";
 import { useFlowStore } from "./flow.store.js";
+import { v4 as uuidv4 } from "uuid";
 
 const useApiStore = defineStore("api-store", {
   state: () => ({
     apiState: {
+      interviewId: null,
       age: null,
       sex: {
         value: null,
@@ -24,6 +26,10 @@ const useApiStore = defineStore("api-store", {
       this.apiState.evidence.push(symptom);
     },
 
+    generateInterviewId() {
+      this.apiState.interviewId = uuidv4();
+    },
+
     async getDiagnosis() {
       this.isLoading = true;
 
@@ -32,6 +38,7 @@ const useApiStore = defineStore("api-store", {
         this.apiState.age,
         this.apiState.sex.value,
         this.apiState.evidence,
+        this.apiState.interviewId,
         "POST"
       )
         .then((response) => response.json())
@@ -60,6 +67,7 @@ const useApiStore = defineStore("api-store", {
         this.apiState.age,
         this.apiState.sex.value,
         this.apiState.evidence,
+        this.apiState.interviewId,
         "POST"
       )
         .then((response) => response.json())
@@ -77,6 +85,7 @@ const useApiStore = defineStore("api-store", {
         this.apiState.age,
         this.apiState.sex.value,
         this.apiState.evidence,
+        this.apiState.interviewId,
         "POST",
         { suggest_method: "demographic_risk_factors" }
       );
@@ -90,6 +99,7 @@ const useApiStore = defineStore("api-store", {
         this.apiState.age,
         this.apiState.sex.value,
         this.apiState.evidence,
+        this.apiState.interviewId,
         "POST",
         { text: text }
       )

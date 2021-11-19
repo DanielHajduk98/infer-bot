@@ -6,13 +6,22 @@
  * @param {evidence} evidence - gathered evidences.
  * @param {object} bodyAssign - object with properties spreaded and added to body
  */
-const api = async (endpoint, age, sex, evidence, method, bodyAssign) => {
+const api = async (
+  endpoint,
+  age,
+  sex,
+  evidence,
+  inderviewId,
+  method,
+  bodyAssign
+) => {
   let options = {
     method,
     headers: {
       "Content-Type": "application/json",
       "App-Id": import.meta.env.VITE_APP_ID,
       "App-Key": import.meta.env.VITE_APP_KEY,
+      "Interview-Id": inderviewId,
     },
   };
   if (method !== "GET")
