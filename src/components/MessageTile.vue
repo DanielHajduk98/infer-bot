@@ -1,12 +1,16 @@
 <template>
-  <div :class="tileActive">
+  <button
+    :disabled="disabled"
+    class="tile"
+    :class="{ 'tile--disabled': disabled }"
+    @click="emitClick"
+  >
     <img :src="icon" class="tile__icon" />
     <span class="tile__text">{{ text }}</span>
-  </div>
+  </button>
 </template>
 
 <script setup>
-import { computed } from "vue";
 const props = defineProps({
   icon: {
     type: String,
@@ -16,12 +20,16 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  active: {
+  disabled: {
     type: Boolean,
     required: true,
   },
 });
-const tileActive = computed(() => (props.active ? "tile--active" : "tile"));
+
+const emit = defineEmits(["click"]),
+  emitClick = () => {
+    emit("click");
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -31,24 +39,29 @@ const tileActive = computed(() => (props.active ? "tile--active" : "tile"));
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 2px solid #fff;
+  border: 2px solid $white;
   padding: 15px;
   border-radius: 4px;
   cursor: pointer;
-  background: #3f94ff;
+  background: $primary;
   transition: all 75ms ease-in-out;
+  color: inherit;
+  flex: 1;
 
-  &--active {
-    @extend .tile;
-    background: #acd1ff;
+  &__icon {
+    margin-bottom: 7px;
+  }
+
+  &--disabled {
+    filter: brightness(0.8);
+    cursor: default;
+  }
+
+  &:not(.tile--disabled):hover,
+  &:not(.tile--disabled):focus {
     transform: scale(1.03);
-  }
-  &:hover {
-    background: #acd1ff;
-  }
-
-  &:active {
-    transform: scale(1.05);
+    background: $blue-very-light;
+    outline: none;
   }
 }
 </style>

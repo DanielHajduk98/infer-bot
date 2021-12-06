@@ -3,6 +3,7 @@ body{
   padding: 0px;
   margin: 0px;
   background: #eee;
+  scroll-behavior: smooth;
 }
 
 #app {
@@ -11,6 +12,7 @@ body{
   grid-auto-rows: min-content;
   grid-gap: 15px;
   padding: 30px;
+  padding-bottom: 104px;
   box-sizing: border-box;
   background: #F7FBFF;
   width: 408px;
@@ -20,4 +22,9 @@ body{
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin-top: 62px;
+}
+
+* {
+  color: inherit;
 }
